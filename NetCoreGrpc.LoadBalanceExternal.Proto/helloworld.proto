@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+package netcoregrpc.loadbalanceexternal.proto;
+
+option csharp_namespace = "NetCoreGrpc.LoadBalanceExternal.Proto";
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: greeter-server-balancer
+spec:
+  clusterIP: None  # Headless service
+  ports:
+  # Use port named "grpclb" to expose the needed DNS SRV record
+  - name: grpclb
+    port: 9000
+  selector:
+    app: greeter-server-balancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeter-server-balancer
+spec:
+  replicas: 2
+  selector:
+      matchLabels:
+        app: greeter-server-balancer
+  template:
+    metadata:
+      labels:
+        app: greeter-server-balancer
+    spec:
+      containers:
+      - name: greeter-server
+        image: wicharypawel/grpc-loadbalancing-demo2018_greeter_server_balancer:my8
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9000
+        env:
+        - name: BACKEND_SERVICE_NAME
+          value: "greeter-server"

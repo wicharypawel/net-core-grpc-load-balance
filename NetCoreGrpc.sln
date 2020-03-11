@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalanceClient", "LoadBalanceClient", "{B778382A-7B1A-430B-8622-BD266A727B0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.LoadBalanceClient.ConsoleClientApp", "NetCoreGrpc.LoadBalanceClient.ConsoleClientApp\NetCoreGrpc.LoadBalanceClient.ConsoleClientApp.csproj", "{0AF3328E-49A6-44D3-BBD9-AF29FBFB6146}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalanceExternal", "LoadBalanceExternal", "{7E45ED39-8B24-4B93-8455-EE7203EA1DB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.LoadBalanceExternal.ConsoleClientApp", "NetCoreGrpc.LoadBalanceExternal.ConsoleClientApp\NetCoreGrpc.LoadBalanceExternal.ConsoleClientApp.csproj", "{FDD8956F-2DAB-47A2-86CB-8124AE8142B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.LoadBalanceExternal.AspNetCoreServerApp", "NetCoreGrpc.LoadBalanceExternal.AspNetCoreServerApp\NetCoreGrpc.LoadBalanceExternal.AspNetCoreServerApp.csproj", "{C397A0BA-E60E-4101-A6A0-B5CD3054909F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.LoadBalanceExternal.GrpcLoadBalancer", "NetCoreGrpc.LoadBalanceExternal.GrpcLoadBalancer\NetCoreGrpc.LoadBalanceExternal.GrpcLoadBalancer.csproj", "{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{1BC6B46F-6F82-4BFE-BED7-812EBDB0AD80}"
+	ProjectSection(SolutionItems) = preProject
+		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-lookaside-lb.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-lookaside-lb.yaml
+		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-round-robin.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-round-robin.yaml
+		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server-balancer.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server-balancer.yaml
+		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server.yaml
+		NetCoreGrpc.LoadBalanceExternal.k8s\README_LoadBalanceExternal.md = NetCoreGrpc.LoadBalanceExternal.k8s\README_LoadBalanceExternal.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AF3328E-49A6-44D3-BBD9-AF29FBFB6146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF3328E-49A6-44D3-BBD9-AF29FBFB6146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF3328E-49A6-44D3-BBD9-AF29FBFB6146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF3328E-49A6-44D3-BBD9-AF29FBFB6146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD8956F-2DAB-47A2-86CB-8124AE8142B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD8956F-2DAB-47A2-86CB-8124AE8142B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD8956F-2DAB-47A2-86CB-8124AE8142B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD8956F-2DAB-47A2-86CB-8124AE8142B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C397A0BA-E60E-4101-A6A0-B5CD3054909F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C397A0BA-E60E-4101-A6A0-B5CD3054909F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C397A0BA-E60E-4101-A6A0-B5CD3054909F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C397A0BA-E60E-4101-A6A0-B5CD3054909F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0AF3328E-49A6-44D3-BBD9-AF29FBFB6146} = {B778382A-7B1A-430B-8622-BD266A727B0F}
+		{FDD8956F-2DAB-47A2-86CB-8124AE8142B7} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
+		{C397A0BA-E60E-4101-A6A0-B5CD3054909F} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
+		{06C1C167-1AA3-420B-8C55-59D0F3B6BB56} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
+		{1BC6B46F-6F82-4BFE-BED7-812EBDB0AD80} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F901E625-68DD-4E60-8F45-2C384EAD4EF1}
+	EndGlobalSection
+EndGlobal
