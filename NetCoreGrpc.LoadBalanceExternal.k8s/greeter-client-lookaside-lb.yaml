@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: greeter-client-lookaside-lb
-    image: wicharypawel/grpc-loadbalancing-demo2018_greeter_client:my8
+    image: wicharypawel/grpc-loadbalancing_greeter_client:latest
     imagePullPolicy: Never
     env:
     # use the grpclb as a lookaside balancer
@@ -16,7 +16,6 @@ spec:
       value: "ares"
     #- name: GRPC_VERBOSITY
     #  value: "debug"
-    # Enable for extra detailed traces
-    # - name: GRPC_TRACE
-    #   value: "glb,client_channel"
+    #- name: GRPC_TRACE
+    #  value: "all"
   restartPolicy: Never

@@ -18,10 +18,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{1BC6B46F-6F82-4BFE-BED7-812EBDB0AD80}"
 	ProjectSection(SolutionItems) = preProject
 		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-lookaside-lb.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-lookaside-lb.yaml
-		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-round-robin.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-client-round-robin.yaml
 		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server-balancer.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server-balancer.yaml
 		NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server.yaml = NetCoreGrpc.LoadBalanceExternal.k8s\greeter-server.yaml
-		NetCoreGrpc.LoadBalanceExternal.k8s\README_LoadBalanceExternal.md = NetCoreGrpc.LoadBalanceExternal.k8s\README_LoadBalanceExternal.md
+		NetCoreGrpc.LoadBalanceExternal.k8s\README.md = NetCoreGrpc.LoadBalanceExternal.k8s\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{2DED5BA0-6703-4BF4-BA3A-17F3E39265CD}"
+	ProjectSection(SolutionItems) = preProject
+		NetCoreGrpc.LoadBalanceClient.k8s\greeter-client-round-robin.yaml = NetCoreGrpc.LoadBalanceClient.k8s\greeter-client-round-robin.yaml
+		NetCoreGrpc.LoadBalanceClient.k8s\README.md = NetCoreGrpc.LoadBalanceClient.k8s\README.md
 	EndProjectSection
 EndProject
 Global
@@ -56,6 +61,7 @@ Global
 		{C397A0BA-E60E-4101-A6A0-B5CD3054909F} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
 		{06C1C167-1AA3-420B-8C55-59D0F3B6BB56} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
 		{1BC6B46F-6F82-4BFE-BED7-812EBDB0AD80} = {7E45ED39-8B24-4B93-8455-EE7203EA1DB7}
+		{2DED5BA0-6703-4BF4-BA3A-17F3E39265CD} = {B778382A-7B1A-430B-8622-BD266A727B0F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F901E625-68DD-4E60-8F45-2C384EAD4EF1}

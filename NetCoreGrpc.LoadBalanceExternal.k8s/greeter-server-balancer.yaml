@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: greeter-server
-        image: wicharypawel/grpc-loadbalancing-demo2018_greeter_server_balancer:my8
+        image: wicharypawel/grpc-loadbalancing_greeter_server_balancer:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 9000
