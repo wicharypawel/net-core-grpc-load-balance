@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: grpc-csharp-client-round-robin
+spec:
+  containers:
+  - name: grpc-csharp-client-round-robin
+    image: grpc-csharp-client-round-robin:latest
+    imagePullPolicy: Never
+    #env:
+    #- name: GRPC_VERBOSITY
+    #  value: "debug"
+    #- name: GRPC_TRACE
+    #  value: "all"
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+  restartPolicy: Never

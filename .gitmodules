@@ -1,0 +1,3 @@
+[submodule "grpc-dotnet"]
+	path = grpc-dotnet
+	url = https://github.com/wicharypawel/grpc-dotnet

@@ -1,18 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using Grpc.Core;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Internal;
+using Microsoft.Extensions.Logging;
 using NetCoreGrpc.LoadBalance.Proto;
 
-namespace NetCoreGrpc.LoadBalanceClient.ConsoleClientApp
+namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
 {
     public class Program
     {
         public static void Main()
         {
-            var channelOptions = new List<ChannelOption>();
-            channelOptions.Add(new ChannelOption("grpc.lb_policy_name", "round_robin"));
-            var channel = new Channel("grpc-server.default.svc.cluster.local:8000", ChannelCredentials.Insecure, channelOptions);
+            var factory = LoggerFactory.Create(x =>
+            {
+                x.AddConsole();
+                x.SetMinimumLevel(LogLevel.Trace);
+            });
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            var channelOptions = new GrpcChannelOptions()
+            {
+                LoggerFactory = factory,
+                LoadBalancePolicy = new RoundRobinPolicy()
+            };
+            var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
+            var channel = GrpcChannel.ForAddress("http://" + channelTarget, channelOptions);
             var client = new Greeter.GreeterClient(channel);
             var user = "Pawel";
             for (int i = 0; i < 10000; i++)

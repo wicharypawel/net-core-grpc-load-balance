@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-server-balancer
+spec:
+  clusterIP: None  # Headless service
+  ports:
+  # Use port named "grpclb" to expose the needed DNS SRV record
+  - name: grpclb
+    port: 9000
+  selector:
+    app: grpc-server-balancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-server-balancer
+spec:
+  replicas: 2
+  selector:
+      matchLabels:
+        app: grpc-server-balancer
+  template:
+    metadata:
+      labels:
+        app: grpc-server-balancer
+    spec:
+      containers:
+      - name: grpc-server-balancer
+        image: grpc-server-balancer:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9000

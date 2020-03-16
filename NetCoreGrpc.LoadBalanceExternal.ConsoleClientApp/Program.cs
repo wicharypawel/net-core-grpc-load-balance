@@ -13,7 +13,7 @@ namespace NetCoreGrpc.LoadBalanceExternal.ConsoleClientApp
             var channelOptions = new List<ChannelOption>();
             channelOptions.Add(new ChannelOption("grpc.dns_enable_srv_queries", 1));
 
-            var channelTarget = Environment.GetEnvironmentVariable("GREETER_SERVICE_TARGET");
+            var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = new Channel(channelTarget, ChannelCredentials.Insecure, channelOptions);
             var client = new Greeter.GreeterClient(channel);
             var user = "Pawel";
