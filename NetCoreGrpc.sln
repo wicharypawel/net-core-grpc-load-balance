@@ -27,9 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyGrpcLoadBalancer", "MyGrp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{EA48C94B-D09A-4D47-99BC-4F037CBED38B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcForCsharpClient", "GrpcForCsharpClient", "{5949DBB5-B1AB-44A6-91C9-AE4DD0400CC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalancingForCsharpClient", "LoadBalancingForCsharpClient", "{5949DBB5-B1AB-44A6-91C9-AE4DD0400CC2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcForDotNetClient", "GrpcForDotNetClient", "{50CED42C-B1BF-4F78-853E-14749D91BD79}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalancingForDotNetClient", "LoadBalancingForDotNetClient", "{50CED42C-B1BF-4F78-853E-14749D91BD79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalanceClient", "LoadBalanceClient", "{ED1B2B90-37D2-4A50-9B38-5A51BCFF979B}"
 EndProject
@@ -38,6 +38,23 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp", "NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp\NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp.csproj", "{D651F750-C999-4332-BAB7-444F9268B76D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp", "NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp\NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp.csproj", "{B3FE76FA-7F8B-4321-9B1B-FCE165ABCC45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalancingForGoClient", "LoadBalancingForGoClient", "{94BEF52D-A520-489A-8160-64A198CBA373}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc.Go.Client.Greeter", "Grpc.Go.Client.Greeter", "{7E9D6002-B923-4D74-A916-0AEF8E2ADFD3}"
+	ProjectSection(SolutionItems) = preProject
+		Grpc.Go.Client.Greeter\README.md = Grpc.Go.Client.Greeter\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc.Go.Client.RoundRobin", "Grpc.Go.Client.RoundRobin", "{CB633D9A-5913-4E28-ABBA-E8F911695963}"
+	ProjectSection(SolutionItems) = preProject
+		Grpc.Go.Client.RoundRobin\README.md = Grpc.Go.Client.RoundRobin\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc.Go.Client.Lookaside", "Grpc.Go.Client.Lookaside", "{22BD1EFB-9BB7-44BE-B1F6-56E2FC23816F}"
+	ProjectSection(SolutionItems) = preProject
+		Grpc.Go.Client.Lookaside\README.md = Grpc.Go.Client.Lookaside\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +116,9 @@ Global
 		{02464F9A-309D-4788-917B-6CB999FE7338} = {50CED42C-B1BF-4F78-853E-14749D91BD79}
 		{D651F750-C999-4332-BAB7-444F9268B76D} = {02464F9A-309D-4788-917B-6CB999FE7338}
 		{B3FE76FA-7F8B-4321-9B1B-FCE165ABCC45} = {ED1B2B90-37D2-4A50-9B38-5A51BCFF979B}
+		{7E9D6002-B923-4D74-A916-0AEF8E2ADFD3} = {94BEF52D-A520-489A-8160-64A198CBA373}
+		{CB633D9A-5913-4E28-ABBA-E8F911695963} = {94BEF52D-A520-489A-8160-64A198CBA373}
+		{22BD1EFB-9BB7-44BE-B1F6-56E2FC23816F} = {94BEF52D-A520-489A-8160-64A198CBA373}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F901E625-68DD-4E60-8F45-2C384EAD4EF1}

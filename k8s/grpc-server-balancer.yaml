@@ -31,3 +31,6 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 9000
+        env:
+        - name: SIMPLEBALANCER_IGNORE_INITIALREQUEST
+          value: "false"

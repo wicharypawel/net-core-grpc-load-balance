@@ -1,0 +1,36 @@
+# Lookaside load balancing for gRPC Go client
+
+__NOTE: Run commands in root directory__
+
+## Build images
+```
+Build image `go-grpc-client-lookaside` using [this](https://github.com/wicharypawel/go-grpc-loadbalancing) repository
+docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
+docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
+```
+
+## Create resources in K8s
+```
+kubectl apply -f .\k8s\grpc-server.yaml
+kubectl apply -f .\k8s\grpc-server-balancer.yaml
+kubectl create -f .\k8s\go-grpc-client-lookaside.yaml
+```
+
+## Verify connection
+```
+kubectl logs go-grpc-client-lookaside
+```
+
+## Tear down resources
+```
+kubectl delete -f .\k8s\go-grpc-client-lookaside.yaml
+kubectl delete -f .\k8s\grpc-server-balancer.yaml
+kubectl delete -f .\k8s\grpc-server.yaml
+```
+
+## Verify DNS SRV records
+```
+kubectl apply -f .\utils\dnsutils.yaml
+kubectl exec -ti dnsutils -- nslookup -type=SRV _grpclb._tcp.grpc-server-balancer.default.svc.cluster.local
+kubectl delete -f .\utils\dnsutils.yaml
+```

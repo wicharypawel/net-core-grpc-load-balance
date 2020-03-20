@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions;
 using NetCoreGrpc.MyGrpcLoadBalancer.Services;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer
@@ -19,6 +20,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddBalancerOptions(Configuration);
             services.AddGrpc();
             services.AddSingleton<KubernetesEndpointWatcher>();
         }
