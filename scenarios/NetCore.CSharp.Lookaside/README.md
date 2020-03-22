@@ -1,6 +1,11 @@
-# Lookaside load balancing for gRPC C#
+# Lookaside load balancing for gRPC C# client
+
+## Overview
+
+![Overview](./overview.PNG)
 
 __NOTE: Run commands in root directory__
+__NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
 
 ## Build images
 ```
@@ -13,6 +18,7 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
 kubectl apply -f .\k8s\grpc-server-balancer.yaml
+kubectl set env deployment/grpc-server-balancer SIMPLEBALANCER_IGNORE_INITIALREQUEST=true
 kubectl create -f .\k8s\grpc-csharp-client-lookaside.yaml
 ```
 

@@ -1,10 +1,15 @@
-# Lookaside load balancing for gRPC dotnet
+# Lookaside load balancing for gRPC Python client
+
+## Overview
+
+![Overview](./overview.PNG)
 
 __NOTE: Run commands in root directory__
+__NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
 
 ## Build images
+Build image `python-grpc-client-lookaside` using ...
 ```
-docker build -t grpc-dotnet-client-lookaside:latest -f .\NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp\Dockerfile .
 docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
@@ -13,17 +18,17 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
 kubectl apply -f .\k8s\grpc-server-balancer.yaml
-kubectl create -f .\k8s\grpc-dotnet-client-lookaside.yaml
+kubectl create -f .\k8s\python-grpc-client-lookaside.yaml
 ```
 
 ## Verify connection
 ```
-kubectl logs grpc-dotnet-client-lookaside
+kubectl logs python-grpc-client-lookaside
 ```
 
 ## Tear down resources
 ```
-kubectl delete -f .\k8s\grpc-dotnet-client-lookaside.yaml
+kubectl delete -f .\k8s\python-grpc-client-lookaside.yaml
 kubectl delete -f .\k8s\grpc-server-balancer.yaml
 kubectl delete -f .\k8s\grpc-server.yaml
 ```

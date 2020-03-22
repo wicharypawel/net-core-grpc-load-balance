@@ -1,27 +1,32 @@
-# Thick client for gRPC C#
+# Round robin load balancing for gRPC dotnet client
+
+## Overview
+
+![Overview](./overview.PNG)
 
 __NOTE: Run commands in root directory__
+__NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
 
 ## Build images
 ```
-docker build -t grpc-csharp-client-round-robin:latest -f .\NetCoreGrpc.LoadBalanceClient.ConsoleClientApp\Dockerfile .
+docker build -t grpc-dotnet-client-round-robin:latest -f .\NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 
 ## Create resources in K8s
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
-kubectl create -f .\k8s\grpc-csharp-client-round-robin.yaml
+kubectl create -f .\k8s\grpc-dotnet-client-round-robin.yaml
 ```
 
 ## Verify connection
 ```
-kubectl logs grpc-csharp-client-round-robin
+kubectl logs grpc-dotnet-client-round-robin
 ```
 
 ## Tear down resources
 ```
-kubectl delete -f .\k8s\grpc-csharp-client-round-robin.yaml
+kubectl delete -f .\k8s\grpc-dotnet-client-round-robin.yaml
 kubectl delete -f .\k8s\grpc-server.yaml
 ```
 

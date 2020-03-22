@@ -20,7 +20,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             var channelOptions = new GrpcChannelOptions()
             {
-                LoggerFactory = factory,
+                // LoggerFactory = factory,
                 LoadBalancePolicy = new RoundRobinPolicy()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");

@@ -21,7 +21,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             var channelOptions = new GrpcChannelOptions()
             {
                 HttpClient = CreateGrpcHttpClient(true),
-                LoggerFactory = factory,
+                //LoggerFactory = factory,
                 LoadBalancePolicy = new GrpclbPolicy()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");

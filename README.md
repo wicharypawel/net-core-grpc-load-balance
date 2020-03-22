@@ -10,10 +10,13 @@ Best links available online about gRPC load balancing are:
 - https://www.youtube.com/watch?v=F2znfxn_5Hg
 
 Scenarios covered by this repository are:
-- thick client for gRPC C# [README](NetCoreGrpc.LoadBalanceClient.ConsoleClientApp/README.md)
-- lookaside load balancing for gRPC C# [README](NetCoreGrpc.LoadBalanceExternal.ConsoleClientApp/README.md)
-- thick client for gRPC dotnet [README](NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp)
-- lookaside load balancing for gRPC dotnet [README](NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp)
+- round robin for gRPC C# client [README](scenarios/NetCore.CSharp.RoundRobin/README.md)
+- lookaside load balancing for gRPC C# client [README](scenarios/NetCore.CSharp.Lookaside/README.md)
+- round robin for gRPC dotnet client [README](scenarios/NetCore.DotNet.RoundRobin/README.md)
+- lookaside load balancing for gRPC dotnet cient [README](scenarios/NetCore.DotNet.Lookaside/README.md)
+- lookaside load balancing for gRPC Java client [README](scenarios/Java.Lookaside/README.md)
+- lookaside load balancing for gRPC Go client [README](scenarios/Go.Lookaside/README.md)
+- lookaside load balancing for gRPC Python client [README](scenarios/Python.Lookaside/README.md) 
 
 Repository also contains simple load balancer for gRPC in K8s written in C#
 
