@@ -6,11 +6,12 @@
 
 __NOTE: Run commands in root directory__
 __NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
+__NOTE: enable verbose logging in Dockerfile by uncommenting line__
 
 ## Build images
 
-Build image `java-grpc-client-lookaside` using ...
 ```
+docker build -t java-grpc-client-lookaside .\Java.Lookaside.ConsoleClientApp
 docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
@@ -23,6 +24,9 @@ kubectl create -f .\k8s\java-grpc-client-lookaside.yaml
 ```
 
 ## Verify connection
+
+__NOTE: it may take up to 5 seconds for logs to start appear__
+
 ```
 kubectl logs java-grpc-client-lookaside
 ```
@@ -41,8 +45,9 @@ kubectl exec -ti dnsutils -- nslookup -type=SRV _grpclb._tcp.grpc-server-balance
 kubectl delete -f .\utils\dnsutils.yaml
 ```
 
+## Sources
 ```
+https://github.com/grpc/grpc-java/issues/6848
 https://github.com/grpc/grpc-java/releases
-https://groups.google.com/forum/#!topic/grpc-io/YQiiNhuLtwE
-https://github.com/saturnism/grpc-by-example-java/blob/master/kubernetes-lb-example/echo-client-lb-dns/src/main/java/com/example/grpc/client/ClientSideLoadBalancedEchoClient.java
+https://groups.google.com/forum/#!topic/grpc-io/YQiiNhuLtwE (version 1.14)
 ```
