@@ -5,7 +5,9 @@
 ![Overview](./overview.PNG)
 
 __NOTE: Run commands in root directory__
+
 __NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
+
 __NOTE: enable verbose logging in Dockerfile by uncommenting line__
 
 ## Build images
@@ -46,8 +48,7 @@ kubectl delete -f .\utils\dnsutils.yaml
 ```
 
 ## Sources
-```
-https://github.com/grpc/grpc-java/issues/6848
-https://github.com/grpc/grpc-java/releases
-https://groups.google.com/forum/#!topic/grpc-io/YQiiNhuLtwE (version 1.14)
-```
+
+- https://github.com/grpc/grpc-java/issues/6848
+- https://github.com/grpc/grpc-java/releases
+- https://groups.google.com/forum/#!topic/grpc-io/YQiiNhuLtwE (version 1.14)

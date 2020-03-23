@@ -5,6 +5,7 @@
 ![Overview](./overview.PNG)
 
 __NOTE: Run commands in root directory__
+
 __NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
 
 ## Build images

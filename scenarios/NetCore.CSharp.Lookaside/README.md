@@ -5,6 +5,7 @@
 ![Overview](./overview.PNG)
 
 __NOTE: Run commands in root directory__
+
 __NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
 
 ## Build images
@@ -42,7 +43,7 @@ kubectl delete -f .\utils\dnsutils.yaml
 ```
 
 ## Useful links: 
-```
+
 - https://github.com/grpc/grpc/blob/master/doc/load-balancing.md
 - https://grpc.io/blog/grpc-load-balancing/
 - https://github.com/jtattermusch/grpc-loadbalancing-kubernetes-examples/blob/master/grpc_loadbalancing_kubernetes_slides.pdf
@@ -64,4 +65,3 @@ kubectl delete -f .\utils\dnsutils.yaml
 - GRPC_ARG_DNS_ENABLE_SRV_QUERIES => grpc.dns_enable_srv_queries
 - set variable to 1 integer
 - https://github.com/grpc/grpc-dotnet/issues/521
-```
