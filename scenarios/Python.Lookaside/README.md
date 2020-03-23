@@ -8,11 +8,9 @@ __NOTE: Run commands in root directory__
 
 __NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
 
-# WORK IN PROCESS EXAMPLE NOT COMPLETED
-
 ## Build images
-Build image `python-grpc-client-lookaside` using ...
 ```
+docker build -t python-grpc-client-lookaside .\Python.Lookaside.ConsoleClientApp
 docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
@@ -21,6 +19,7 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
 kubectl apply -f .\k8s\grpc-server-balancer.yaml
+kubectl set env deployment/grpc-server-balancer SIMPLEBALANCER_IGNORE_INITIALREQUEST=true
 kubectl create -f .\k8s\python-grpc-client-lookaside.yaml
 ```
 
