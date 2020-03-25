@@ -4,8 +4,10 @@ using System.Threading;
 using NetCoreGrpc.LoadBalance.Proto;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
-using Grpc.Net.Client.Internal;
 using System.Net.Http;
+using Grpc.Net.Client.LoadBalancing.Policies;
+using Grpc.Net.Client.LoadBalancing.NameResolvers;
+using System.Net;
 
 namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
 {
@@ -13,6 +15,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
     {
         public static void Main()
         {
+            const int defaultDnsPort = 53;
             var factory = LoggerFactory.Create(x =>
             {
                 x.AddConsole();
@@ -20,9 +23,13 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             });
             var channelOptions = new GrpcChannelOptions()
             {
-                HttpClient = CreateGrpcHttpClient(true),
                 //LoggerFactory = factory,
-                LoadBalancePolicy = new GrpclbPolicy()
+                HttpClient = CreateGrpcHttpClient(true),
+                NameResolver = new DnsClientNameResolver(new DnsClientNameResolverOptions()
+                {
+                    NameServers = new IPEndPoint[] { new IPEndPoint(Dns.GetHostAddresses("custom-dns")[0], defaultDnsPort) }
+                }),
+                LoadBalancingPolicy = new GrpclbPolicy()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress("http://" + channelTarget, channelOptions);

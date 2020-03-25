@@ -2,7 +2,7 @@
 using System.Threading;
 using Grpc.Core;
 using Grpc.Net.Client;
-using Grpc.Net.Client.Internal;
+using Grpc.Net.Client.LoadBalancing.Policies;
 using Microsoft.Extensions.Logging;
 using NetCoreGrpc.LoadBalance.Proto;
 
@@ -21,7 +21,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
             var channelOptions = new GrpcChannelOptions()
             {
                 // LoggerFactory = factory,
-                LoadBalancePolicy = new RoundRobinPolicy()
+                LoadBalancingPolicy = new RoundRobinPolicy()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress("http://" + channelTarget, channelOptions);

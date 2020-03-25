@@ -17,6 +17,7 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 
 ## Create resources in K8s
 ```
+kubectl apply -f .\k8s\custom-dns.yaml
 kubectl apply -f .\k8s\grpc-server.yaml
 kubectl apply -f .\k8s\grpc-server-balancer.yaml
 kubectl create -f .\k8s\grpc-dotnet-client-lookaside.yaml
@@ -32,6 +33,7 @@ kubectl logs grpc-dotnet-client-lookaside
 kubectl delete -f .\k8s\grpc-dotnet-client-lookaside.yaml
 kubectl delete -f .\k8s\grpc-server-balancer.yaml
 kubectl delete -f .\k8s\grpc-server.yaml
+kubectl delete -f .\k8s\custom-dns.yaml
 ```
 
 ## Verify DNS SRV records
