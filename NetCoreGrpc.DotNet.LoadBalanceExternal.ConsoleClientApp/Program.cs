@@ -6,7 +6,7 @@ using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using Grpc.Net.Client.LoadBalancing.Policies;
-using Grpc.Net.Client.LoadBalancing.NameResolvers;
+using Grpc.Net.Client.LoadBalancing.ResolverPlugins;
 using System.Net;
 
 namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
@@ -25,7 +25,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             {
                 //LoggerFactory = factory,
                 HttpClient = CreateGrpcHttpClient(true),
-                NameResolver = new DnsClientNameResolver(new DnsClientNameResolverOptions()
+                ResolverPlugin = new DnsClientResolverPlugin(new DnsClientResolverPluginOptions()
                 {
                     NameServers = new IPEndPoint[] { new IPEndPoint(Dns.GetHostAddresses("custom-dns")[0], defaultDnsPort) }
                 }),

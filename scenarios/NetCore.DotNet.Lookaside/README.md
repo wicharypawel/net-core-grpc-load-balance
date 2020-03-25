@@ -40,5 +40,6 @@ kubectl delete -f .\k8s\custom-dns.yaml
 ```
 kubectl apply -f .\utils\dnsutils.yaml
 kubectl exec -ti dnsutils -- nslookup -type=SRV _grpclb._tcp.grpc-server-balancer.default.svc.cluster.local
+kubectl exec -ti dnsutils -- dig @custom-dns -p 53 txt _grpc_config.grpc-server.custom-dns.local
 kubectl delete -f .\utils\dnsutils.yaml
 ```

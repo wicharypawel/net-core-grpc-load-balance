@@ -13,6 +13,7 @@ data:
         ready
         rewrite name _grpclb._tcp.grpc-server.custom-dns.local _grpclb._tcp.grpc-server-balancer.default.svc.cluster.local
         rewrite name grpc-server.custom-dns.local grpc-server.default.svc.cluster.local
+        file /etc/coredns/txtRecordsFile.db _grpc_config.grpc-server.custom-dns.local
         kubernetes cluster.local in-addr.arpa ip6.arpa {
             pods insecure
             fallthrough in-addr.arpa ip6.arpa
@@ -25,6 +26,9 @@ data:
         reload
         loadbalance
     }
+  txtRecordsFile.db: |
+    _grpc_config.grpc-server.custom-dns.local.     IN      SOA     sns.dns.icann.org. noc.dns.icann.org. 2015082541 7200 3600 1209600 3600
+    _grpc_config.grpc-server.custom-dns.local.     IN      TXT     "grpc_config=[{\"serviceConfig\":{\"loadBalancingPolicy\":\"round_robin\",\"methodConfig\":[{\"name\":[{\"service\":\"MyService\",\"method\":\"Foo\"}],\"waitForReady\":true}]}}]"
 ---
 apiVersion: v1
 kind: Service
@@ -97,3 +101,5 @@ spec:
             items:
             - key: Corefile
               path: Corefile
+            - key: txtRecordsFile.db
+              path: txtRecordsFile.db
