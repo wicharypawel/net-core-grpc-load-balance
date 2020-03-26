@@ -24,7 +24,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
                 LoadBalancingPolicy = new RoundRobinPolicy()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
-            var channel = GrpcChannel.ForAddress("http://" + channelTarget, channelOptions);
+            var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
             var client = new Greeter.GreeterClient(channel);
             var user = "Pawel";
             for (int i = 0; i < 10000; i++)
