@@ -35,7 +35,3 @@ spec:
         env:
         - name: GRPC_VERBOSITY
           value: "debug"
-        - name: MY_POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP

@@ -1,6 +1,8 @@
 ﻿using k8s;
 using k8s.Exceptions;
 using k8s.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
     {
         private readonly Kubernetes _client;
         private IEnumerable<EndpointEntry> _endpointEntries;
-        public KubernetesEndpointWatcher()
+        public KubernetesEndpointWatcher(IWebHostEnvironment hostEnvironment)
         {
             _endpointEntries = Enumerable.Empty<EndpointEntry>();
             try
@@ -22,7 +24,21 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
             }
             catch (KubeConfigException x) when (x.Message.StartsWith("unable to load in-cluster configuration"))
             {
-                _endpointEntries = Array.Empty<EndpointEntry>();
+                if (hostEnvironment.IsDevelopment())
+                {
+                    _endpointEntries = new EndpointEntry[]
+                    {
+                        new EndpointEntry()
+                        {
+                            Ip = "127.0.0.1",
+                            Port = 8000
+                        }
+                    };
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 

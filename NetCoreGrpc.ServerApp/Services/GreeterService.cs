@@ -1,4 +1,5 @@
-using System;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
@@ -18,8 +19,21 @@ namespace NetCoreGrpc.ServerApp.Services
         {
             return Task.FromResult(new HelloReply
             {
-                Message = $"Hello {request.Name} (Backend IP: {Environment.GetEnvironmentVariable("MY_POD_IP") ?? "not found" })"
+                Message = $"Hello {request.Name} (Backend IP: {GetLocalIPAddress() ?? "not found" })"
             });
+        }
+
+        private static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return null;
         }
     }
 }

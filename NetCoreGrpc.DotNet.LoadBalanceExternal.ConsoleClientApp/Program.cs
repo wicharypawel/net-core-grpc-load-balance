@@ -8,6 +8,8 @@ using System.Net.Http;
 using Grpc.Net.Client.LoadBalancing.Policies;
 using Grpc.Net.Client.LoadBalancing.ResolverPlugins;
 using System.Net;
+using System.Collections.Generic;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
 {
@@ -18,8 +20,8 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
-                HttpClient = CreateGrpcHttpClient(true),
-                ResolverPlugin = new DnsClientResolverPlugin(GetDnsClientResolverPluginOptions()),
+                HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
+                ResolverPlugin = GetGrpcResolverPlugin(),
                 LoadBalancingPolicy = new GrpclbPolicy()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
@@ -45,11 +47,38 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
 
         private static ILoggerFactory GetConsoleLoggerFactory()
         {
+            var isLocalEnvironment = bool.TryParse(Environment.GetEnvironmentVariable("IS_LOCAL_ENV"), out bool x) ? x : false;
+            if (isLocalEnvironment)
+            {
+                return NullLoggerFactory.Instance;
+            }
             return LoggerFactory.Create(x =>
             {
                 x.AddConsole();
                 x.SetMinimumLevel(LogLevel.Trace);
             });
+        }
+
+        private static IGrpcResolverPlugin GetGrpcResolverPlugin()
+        {
+            var isLocalEnvironment = bool.TryParse(Environment.GetEnvironmentVariable("IS_LOCAL_ENV"), out bool x) ? x : false;
+            if (isLocalEnvironment)
+            {
+                return new StaticResolverPlugin((uri) =>
+                {
+                    return new List<GrpcNameResolutionResult>()
+                    {
+                        new GrpcNameResolutionResult("127.0.0.1", 9000)
+                        {
+                            IsLoadBalancer = true,
+                        }
+                    };
+                });
+            }
+            else
+            {
+                return new DnsClientResolverPlugin(GetDnsClientResolverPluginOptions());
+            }
         }
 
         private static DnsClientResolverPluginOptions GetDnsClientResolverPluginOptions()

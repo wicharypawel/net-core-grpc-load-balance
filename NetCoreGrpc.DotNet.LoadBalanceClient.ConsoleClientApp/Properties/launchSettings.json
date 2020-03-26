@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "IS_LOCAL_ENV": "true",
+        "SERVICE_TARGET": "dns://localhost:8000"
+      }
+    }
+  }
+}

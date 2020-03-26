@@ -14,6 +14,7 @@ Scenarios covered by this repository are:
 - lookaside load balancing for gRPC C# client [README](scenarios/NetCore.CSharp.Lookaside/README.md)
 - round robin for gRPC dotnet client [README](scenarios/NetCore.DotNet.RoundRobin/README.md)
 - lookaside load balancing for gRPC dotnet cient [README](scenarios/NetCore.DotNet.Lookaside/README.md)
+- lookaside load balancing for gRPC dotnet cient with custom dns server (CoreDNS) [README](scenarios/NetCore.DotNet.Lookaside.CustomDns/README.md)
 - lookaside load balancing for gRPC Java client [README](scenarios/Java.Lookaside/README.md)
 - lookaside load balancing for gRPC Go client [README](scenarios/Go.Lookaside/README.md)
 - lookaside load balancing for gRPC Python client [README](scenarios/Python.Lookaside/README.md) 
