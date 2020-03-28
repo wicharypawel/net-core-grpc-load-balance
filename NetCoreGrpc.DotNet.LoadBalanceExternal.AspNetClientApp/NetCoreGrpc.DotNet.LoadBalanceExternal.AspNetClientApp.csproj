@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\grpc-dotnet\src\Grpc.AspNetCore\Grpc.AspNetCore.csproj" />
+    <ProjectReference Include="..\grpc-dotnet\src\Grpc.AspNetCore.Server\Grpc.AspNetCore.Server.csproj" />
+    <ProjectReference Include="..\grpc-dotnet\src\Grpc.AspNetCore.Server.ClientFactory\Grpc.AspNetCore.Server.ClientFactory.csproj" />
+    <ProjectReference Include="..\grpc-dotnet\src\Grpc.Net.Client.LoadBalancing\Grpc.Net.Client.LoadBalancing.csproj" />
+    <ProjectReference Include="..\grpc-dotnet\src\Grpc.Net.ClientFactory\Grpc.Net.ClientFactory.csproj" />
+    <PackageReference Include="Grpc.Tools" Version="2.27.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Protobuf Include="Protos\helloworld.proto" />
+  </ItemGroup>
+
+</Project>

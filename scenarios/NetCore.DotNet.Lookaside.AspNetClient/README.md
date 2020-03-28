@@ -1,4 +1,4 @@
-# Lookaside load balancing for gRPC dotnet client
+# Lookaside load balancing for gRPC dotnet client integrated with ASP.NET Core
 
 ## Overview
 
@@ -10,7 +10,7 @@ __NOTE: K8s files works with local docker images, change imagePullPolicy to allo
 
 ## Build images
 ```
-docker build -t grpc-dotnet-client-lookaside:latest -f .\NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp\Dockerfile .
+docker build -t grpc-dotnet-client-lookaside-aspnet:latest -f .\NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp\Dockerfile .
 docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
@@ -19,17 +19,19 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
 kubectl apply -f .\k8s\grpc-server-balancer.yaml
-kubectl create -f .\k8s\grpc-dotnet-client-lookaside.yaml
+kubectl create -f .\k8s\grpc-dotnet-client-lookaside-aspnet.yaml
 ```
 
 ## Verify connection
 ```
-kubectl logs grpc-dotnet-client-lookaside
+kubectl port-forward grpc-dotnet-client-lookaside-aspnet 5500:5000
 ```
+
+Open browser at your machine and type `http://localhost:5500/api/greeter/sayhello`. This should trigger asp.net core api controller to make loadbalanced requests and return values. 
 
 ## Tear down resources
 ```
-kubectl delete -f .\k8s\grpc-dotnet-client-lookaside.yaml
+kubectl delete -f .\k8s\grpc-dotnet-client-lookaside-aspnet.yaml
 kubectl delete -f .\k8s\grpc-server-balancer.yaml
 kubectl delete -f .\k8s\grpc-server.yaml
 ```

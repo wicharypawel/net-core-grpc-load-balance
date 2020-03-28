@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/greeter/sayhello",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "IS_LOCAL_ENV": "true",
+        "SERVICE_TARGET": "dns://localhost:8000"
+      },
+      "applicationUrl": "http://localhost:5000"
+    }
+  }
+}
