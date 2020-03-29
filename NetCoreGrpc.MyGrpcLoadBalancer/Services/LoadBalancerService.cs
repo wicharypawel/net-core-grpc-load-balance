@@ -2,6 +2,7 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Lb.V1;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
 using System;
@@ -14,29 +15,34 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
     {
         private readonly KubernetesEndpointWatcher _watcher;
         private readonly BalancerOptions _options;
+        private readonly ILogger _logger;
 
-        public LoadBalancerService(KubernetesEndpointWatcher watcher, IOptions<BalancerOptions> options)
+        public LoadBalancerService(KubernetesEndpointWatcher watcher, 
+            IOptions<BalancerOptions> options,
+            ILogger<LoadBalancerService> logger)
         {
             _watcher = watcher;
             _options = options.Value;
+            _logger = logger;
         }
 
-        public override async Task BalanceLoad(IAsyncStreamReader<LoadBalanceRequest> requestStream, IServerStreamWriter<LoadBalanceResponse> responseStream, ServerCallContext context)
+        public override async Task BalanceLoad(IAsyncStreamReader<LoadBalanceRequest> requestStream, 
+            IServerStreamWriter<LoadBalanceResponse> responseStream, ServerCallContext context)
         {
-            Console.WriteLine("BalanceLoad start");
+            _logger.LogDebug("BalanceLoad start");
             while (await requestStream.MoveNext())
             {
                 var requestType = requestStream.Current.LoadBalanceRequestTypeCase;
                 if(requestType == LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.None)
                 {
-                    Console.WriteLine("BalanceLoad none request - skip");
+                    _logger.LogDebug("BalanceLoad none request - skip");
                     continue;
                 }
-                Console.WriteLine($"BalanceLoad next {requestType}");
+                _logger.LogDebug($"BalanceLoad next {requestType}");
                 if (requestType == LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.InitialRequest && !_options.IsIgnoringInitialRequest)
                 {
                     var serviceName = requestStream.Current.InitialRequest.Name;
-                    Console.WriteLine($"BalanceLoad initialRequest {serviceName}");
+                    _logger.LogDebug($"BalanceLoad initialRequest {serviceName}");
                     await responseStream.WriteAsync(new LoadBalanceResponse()
                     {
                         InitialResponse = new InitialLoadBalanceResponse()
@@ -52,7 +58,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
                     var responseServerList = new ServerList();
                     foreach (var entry in _watcher.GetEndpointEntries())
                     {
-                        Console.WriteLine($"BalanceLoad response {entry.Ip} {entry.Port}");
+                        _logger.LogDebug($"BalanceLoad response {entry.Ip} {entry.Port}");
                         responseServerList.Servers.Add(new Server()
                         {
                             IpAddress = ByteString.CopyFrom(IPAddress.Parse(entry.Ip).GetAddressBytes()),

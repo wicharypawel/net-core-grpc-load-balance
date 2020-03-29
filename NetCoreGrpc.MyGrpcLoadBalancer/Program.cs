@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer
 {
@@ -12,6 +13,11 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(loggingBuilder =>
+                {
+                    loggingBuilder.ClearProviders();
+                    loggingBuilder.AddConsole();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
