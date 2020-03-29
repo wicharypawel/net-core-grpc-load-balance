@@ -34,6 +34,6 @@ kubectl delete -f .\k8s\grpc-server.yaml
 ## Verify DNS SRV records
 ```
 kubectl apply -f .\utils\dnsutils.yaml
-kubectl exec -ti dnsutils -- nslookup -type=SRV _grpc._tcp.grpc-server.default.svc.cluster.local
+kubectl exec -ti dnsutils -- nslookup -type=A grpc-server.default.svc.cluster.local
 kubectl delete -f .\utils\dnsutils.yaml
 ```
