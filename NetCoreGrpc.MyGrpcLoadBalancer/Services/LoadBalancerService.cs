@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
 using System;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
@@ -54,6 +55,8 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
                 }
                 else
                 {
+                    var clientStats = requestStream.Current.ClientStats;
+                    _logger.LogDebug($"BalanceLoad ClientStats received {JsonSerializer.Serialize(clientStats)}");
                     var response = new LoadBalanceResponse();
                     var responseServerList = new ServerList();
                     foreach (var entry in _watcher.GetEndpointEntries())
