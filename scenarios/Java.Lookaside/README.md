@@ -27,8 +27,6 @@ kubectl create -f .\k8s\java-grpc-client-lookaside.yaml
 
 ## Verify connection
 
-__NOTE: it may take up to 5 seconds for logs to start appear__
-
 ```
 kubectl logs java-grpc-client-lookaside
 ```

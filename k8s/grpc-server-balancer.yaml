@@ -32,5 +32,5 @@ spec:
         ports:
         - containerPort: 9000
         env:
-        - name: SIMPLEBALANCER_IGNORE_INITIALREQUEST
-          value: "false"
+        - name: SIMPLEBALANCER_CLIENT_STATS_REPORT_INTERVAL
+          value: "00:00:10"

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
+using System;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
 {
@@ -10,13 +11,13 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
         {
             services.AddOptions<BalancerOptions>().Configure(options =>
             {
-                if (bool.TryParse(configuration["SIMPLEBALANCER_IGNORE_INITIALREQUEST"], out bool isIgnoringInitialRequest))
+                if (TimeSpan.TryParse(configuration["SIMPLEBALANCER_CLIENT_STATS_REPORT_INTERVAL"], out TimeSpan clientStatsReportInterval))
                 {
-                    options.IsIgnoringInitialRequest = isIgnoringInitialRequest;
+                    options.ClientStatsReportInterval = clientStatsReportInterval;
                 }
                 else
                 {
-                    options.IsIgnoringInitialRequest = false;
+                    options.ClientStatsReportInterval = TimeSpan.FromSeconds(10);
                 }
             });
             return services;

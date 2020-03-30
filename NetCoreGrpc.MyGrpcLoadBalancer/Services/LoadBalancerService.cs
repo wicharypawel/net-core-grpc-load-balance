@@ -34,44 +34,65 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
             while (await requestStream.MoveNext())
             {
                 var requestType = requestStream.Current.LoadBalanceRequestTypeCase;
-                if(requestType == LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.None)
+                _logger.LogDebug($"BalanceLoad next {requestType}, request received at {DateTime.UtcNow}");
+                switch (requestType)
                 {
-                    _logger.LogDebug("BalanceLoad none request - skip");
-                    continue;
-                }
-                _logger.LogDebug($"BalanceLoad next {requestType}");
-                if (requestType == LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.InitialRequest && !_options.IsIgnoringInitialRequest)
-                {
-                    var serviceName = requestStream.Current.InitialRequest.Name;
-                    _logger.LogDebug($"BalanceLoad initialRequest {serviceName}");
-                    await responseStream.WriteAsync(new LoadBalanceResponse()
-                    {
-                        InitialResponse = new InitialLoadBalanceResponse()
-                        {
-                            ClientStatsReportInterval = Duration.FromTimeSpan(TimeSpan.FromSeconds(5)),
-                            LoadBalancerDelegate = string.Empty
-                        }
-                    });
-                }
-                else
-                {
-                    var clientStats = requestStream.Current.ClientStats;
-                    _logger.LogDebug($"BalanceLoad ClientStats received {JsonSerializer.Serialize(clientStats)}");
-                    var response = new LoadBalanceResponse();
-                    var responseServerList = new ServerList();
-                    foreach (var entry in _watcher.GetEndpointEntries())
-                    {
-                        _logger.LogDebug($"BalanceLoad response {entry.Ip} {entry.Port}");
-                        responseServerList.Servers.Add(new Server()
-                        {
-                            IpAddress = ByteString.CopyFrom(IPAddress.Parse(entry.Ip).GetAddressBytes()),
-                            Port = entry.Port
-                        });
-                    }
-                    response.ServerList = responseServerList;
-                    await responseStream.WriteAsync(response);
+                    case LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.None:
+                        _logger.LogDebug("BalanceLoad none request - skip");
+                        continue;
+                    case LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.InitialRequest:
+                        await ProcessInitialRequestAsync(requestStream, responseStream);
+                        break;
+                    case LoadBalanceRequest.LoadBalanceRequestTypeOneofCase.ClientStats:
+                        await ProcessClientStatsAsync(requestStream, responseStream);
+                        break;
+                    default:
+                        _logger.LogDebug("BalanceLoad request unknown - skip");
+                        continue;
                 }
             }
+        }
+
+        private async Task ProcessInitialRequestAsync(IAsyncStreamReader<LoadBalanceRequest> requestStream,
+            IServerStreamWriter<LoadBalanceResponse> responseStream)
+        {
+            var serviceName = requestStream.Current.InitialRequest.Name;
+            _logger.LogDebug($"BalanceLoad initialRequest {serviceName}");
+            await responseStream.WriteAsync(new LoadBalanceResponse()
+            {
+                InitialResponse = new InitialLoadBalanceResponse()
+                {
+                    ClientStatsReportInterval = Duration.FromTimeSpan(_options.ClientStatsReportInterval),
+                    LoadBalancerDelegate = string.Empty
+                }
+            });
+            await SendServerListAsync(responseStream);
+        }
+
+        private async Task ProcessClientStatsAsync(IAsyncStreamReader<LoadBalanceRequest> requestStream,
+            IServerStreamWriter<LoadBalanceResponse> responseStream)
+        {
+            var clientStats = requestStream.Current.ClientStats;
+            _logger.LogDebug($"BalanceLoad ClientStats received {JsonSerializer.Serialize(clientStats)}");
+
+            //TODO store and analyse client stats
+
+            await SendServerListAsync(responseStream);
+        }
+
+        private async Task SendServerListAsync(IServerStreamWriter<LoadBalanceResponse> responseStream)
+        {
+            var responseServerList = new ServerList();
+            foreach (var entry in _watcher.GetEndpointEntries())
+            {
+                _logger.LogDebug($"BalanceLoad response {entry.Ip} {entry.Port}");
+                responseServerList.Servers.Add(new Server()
+                {
+                    IpAddress = ByteString.CopyFrom(IPAddress.Parse(entry.Ip).GetAddressBytes()),
+                    Port = entry.Port
+                });
+            }
+            await responseStream.WriteAsync(new LoadBalanceResponse() { ServerList = responseServerList });
         }
     }
 }

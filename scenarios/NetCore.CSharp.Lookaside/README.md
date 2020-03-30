@@ -19,7 +19,6 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
 kubectl apply -f .\k8s\grpc-server-balancer.yaml
-kubectl set env deployment/grpc-server-balancer SIMPLEBALANCER_IGNORE_INITIALREQUEST=true
 kubectl create -f .\k8s\grpc-csharp-client-lookaside.yaml
 ```
 
