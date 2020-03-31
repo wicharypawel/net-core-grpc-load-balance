@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions;
 using NetCoreGrpc.MyGrpcLoadBalancer.Services;
+using NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer
 {
@@ -23,6 +24,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer
             services.AddBalancerOptions(Configuration);
             services.AddGrpc();
             services.AddSingleton<KubernetesEndpointWatcher>();
+            services.AddSingleton<LoadManager>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

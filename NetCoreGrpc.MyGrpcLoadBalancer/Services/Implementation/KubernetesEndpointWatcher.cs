@@ -7,20 +7,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
+namespace NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation
 {
-    public sealed class KubernetesEndpointWatcher
+    public sealed class KubernetesEndpointWatcher : IDisposable
     {
-        private readonly Kubernetes _client;
-        private IEnumerable<EndpointEntry> _endpointEntries;
+        private readonly Kubernetes _k8sClient;
+        private IReadOnlyList<EndpointEntry> _endpointEntries;
+
         public KubernetesEndpointWatcher(IWebHostEnvironment hostEnvironment)
         {
-            _endpointEntries = Enumerable.Empty<EndpointEntry>();
+            _endpointEntries = Array.Empty<EndpointEntry>();
             try
             {
                 var config = KubernetesClientConfiguration.InClusterConfig();
-                _client = new Kubernetes(config);
-                _client.WatchNamespacedEndpointsAsync("grpc-server", "default", onEvent: onEvent);
+                _k8sClient = new Kubernetes(config);
+                _k8sClient.WatchNamespacedEndpointsAsync("grpc-server", "default", onEvent: onEvent);
             }
             catch (KubeConfigException x) when (x.Message.StartsWith("unable to load in-cluster configuration"))
             {
@@ -74,6 +75,11 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
                 }
             }
             _endpointEntries = list;
+        }
+
+        public void Dispose()
+        {
+            _k8sClient?.Dispose();
         }
     }
 

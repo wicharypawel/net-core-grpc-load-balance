@@ -5,6 +5,7 @@ using Grpc.Lb.V1;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
+using NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation;
 using System;
 using System.Net;
 using System.Text.Json;
@@ -12,19 +13,22 @@ using System.Threading.Tasks;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
 {
-    public class LoadBalancerService : LoadBalancer.LoadBalancerBase
+    public sealed class LoadBalancerService : LoadBalancer.LoadBalancerBase
     {
         private readonly KubernetesEndpointWatcher _watcher;
         private readonly BalancerOptions _options;
         private readonly ILogger _logger;
+        private readonly LoadManager _loadManager;
 
         public LoadBalancerService(KubernetesEndpointWatcher watcher, 
             IOptions<BalancerOptions> options,
-            ILogger<LoadBalancerService> logger)
+            ILogger<LoadBalancerService> logger,
+            LoadManager loadManager)
         {
             _watcher = watcher;
             _options = options.Value;
             _logger = logger;
+            _loadManager = loadManager;
         }
 
         public override async Task BalanceLoad(IAsyncStreamReader<LoadBalanceRequest> requestStream, 
@@ -89,7 +93,8 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
                 responseServerList.Servers.Add(new Server()
                 {
                     IpAddress = ByteString.CopyFrom(IPAddress.Parse(entry.Ip).GetAddressBytes()),
-                    Port = entry.Port
+                    Port = entry.Port,
+                    LoadBalanceToken = _loadManager.GetLoadBalanceToken(entry.Ip)
                 });
             }
             await responseStream.WriteAsync(new LoadBalanceResponse() { ServerList = responseServerList });
