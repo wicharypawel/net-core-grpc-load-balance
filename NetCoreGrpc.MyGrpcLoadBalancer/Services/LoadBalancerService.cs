@@ -94,7 +94,8 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
                 {
                     IpAddress = ByteString.CopyFrom(IPAddress.Parse(entry.Ip).GetAddressBytes()),
                     Port = entry.Port,
-                    LoadBalanceToken = _loadManager.GetLoadBalanceToken(entry.Ip)
+                    LoadBalanceToken = _options.EnableLoadBalanceTokens ? 
+                        _loadManager.GetLoadBalanceToken(entry.Ip) : string.Empty
                 });
             }
             await responseStream.WriteAsync(new LoadBalanceResponse() { ServerList = responseServerList });

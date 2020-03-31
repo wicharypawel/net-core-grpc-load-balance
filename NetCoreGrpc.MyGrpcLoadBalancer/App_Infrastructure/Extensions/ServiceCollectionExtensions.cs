@@ -19,6 +19,15 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
                 {
                     options.ClientStatsReportInterval = TimeSpan.FromSeconds(10);
                 }
+
+                if (bool.TryParse(configuration["SIMPLEBALANCER_ENABLE_LOADBALANCE_TOKENS"], out bool enableLoadBalanceTokens))
+                {
+                    options.EnableLoadBalanceTokens = enableLoadBalanceTokens;
+                }
+                else
+                {
+                    options.EnableLoadBalanceTokens = true;
+                }
             });
             return services;
         }
