@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
 using System;
+using System.Linq;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
 {
@@ -28,8 +29,56 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
                 {
                     options.EnableLoadBalanceTokens = true;
                 }
+                
+                if (TryParseKubernetesServiceOption(configuration[$"SIMPLEBALANCER_K8S_SERVICE"], out var kubernetesServiceOption))
+                {
+                    options.KubernetesServiceOption = kubernetesServiceOption;
+                }
+                else
+                {
+                    throw new ArgumentException("Missing configuration for k8s services (env:SIMPLEBALANCER_K8S_SERVICE)");
+                }
+
+                if (bool.TryParse(configuration["SIMPLEBALANCER_VALIDATE_SERVICE_NAME"], out bool validateServiceName))
+                {
+                    options.ValidateServiceName = validateServiceName;
+                }
+                else
+                {
+                    options.ValidateServiceName = false;
+                }
+                options.FallbackEnabled = false;
             });
             return services;
+        }
+
+        private static bool TryParseKubernetesServiceOption(string? value, out KubernetesServiceOption kubernetesServiceOption)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                kubernetesServiceOption = null;
+                return false;
+            }
+            try
+            {
+                var stringTuples = value.Split(";");
+                var result = new KubernetesServiceOption()
+                {
+                    Name = stringTuples.First(x => x.StartsWith("name=")).Substring(5),
+                    Namespace = stringTuples.First(x => x.StartsWith("namespace=")).Substring(10),
+                };
+                foreach (var stringTuple in stringTuples.Where(x => x.StartsWith("alias=")))
+                {
+                    result.AliasListForClients.Add(stringTuple.Substring(6));
+                }
+                kubernetesServiceOption = result;
+                return true;
+            }
+            catch (Exception)
+            {
+                kubernetesServiceOption = null;
+                return false;
+            }
         }
     }
 }

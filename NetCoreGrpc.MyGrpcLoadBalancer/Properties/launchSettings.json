@@ -3,14 +3,10 @@
     "NetCoreGrpc.MyGrpcLoadBalancer": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_URLS": "http://*:9000",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SIMPLEBALANCER_K8S_SERVICE": "name=for-development-is-ignored;namespace=default",
+        "SIMPLEBALANCER_VALIDATE_SERVICE_NAME": "false"
       }
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true
     }
   }
 }

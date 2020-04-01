@@ -34,3 +34,9 @@ spec:
         env:
         - name: SIMPLEBALANCER_CLIENT_STATS_REPORT_INTERVAL
           value: "00:00:10"
+        - name: SIMPLEBALANCER_ENABLE_LOADBALANCE_TOKENS
+          value: "true"
+        - name: SIMPLEBALANCER_K8S_SERVICE
+          value: "name=grpc-server;namespace=default;alias=grpc-server.custom-dns.local;alias=grpc-server-balancer;alias=grpc-server-balancer.default.svc.cluster.local"
+        - name: SIMPLEBALANCER_VALIDATE_SERVICE_NAME
+          value: "true"

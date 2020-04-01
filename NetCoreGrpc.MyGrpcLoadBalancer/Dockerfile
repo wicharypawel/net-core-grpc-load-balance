@@ -2,8 +2,7 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-EXPOSE 9000
-ENV ASPNETCORE_URLS http://*:9000
+EXPOSE 9000 9100
 ENV ASPNETCORE_ENVIRONMENT Production
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build

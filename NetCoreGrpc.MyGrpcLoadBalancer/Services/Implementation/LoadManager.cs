@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NetCoreGrpc.MyGrpcLoadBalancer.Services.Abstraction;
+using System;
 using System.Collections.Concurrent;
 
 namespace NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation
 {
-    public sealed class LoadManager
+    internal sealed class LoadManager : ILoadManager
     {
         private readonly ConcurrentDictionary<string, Guid> _loadBalanceTokensDictionary;
 
