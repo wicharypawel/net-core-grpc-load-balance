@@ -34,11 +34,11 @@ namespace SimpleBalancer.Services.Implementation
                 InitializeWatcherAsync().Wait();
                 _logger.LogDebug("Connected to K8s, watcher initialized");
             }
-            catch (KubeConfigException x) when (x.Message.StartsWith("unable to load in-cluster configuration") && env.IsDevelopment())
+            catch (KubeConfigException x) when (PredefinedConfiguration.HasPredefinedConfiguration(x, env))
             {
                 _k8sClient = null;
-                _endpointEntries = GetDevelopmentConfiguration();
-                _logger.LogDebug("Can not connect to K8s, using development configuration");
+                _endpointEntries = PredefinedConfiguration.GetEndpointEntries(env);
+                _logger.LogDebug($"Can not connect to K8s, using predefined configuration");
             }
         }
 
@@ -51,14 +51,6 @@ namespace SimpleBalancer.Services.Implementation
         {
             var service = _options.KubernetesServiceOption;
             return _k8sClient.WatchNamespacedEndpointsAsync(service.Name, service.Namespace, onEvent: onEvent);
-        }
-
-        private static IReadOnlyList<EndpointEntry> GetDevelopmentConfiguration()
-        {
-            return new EndpointEntry[]
-            {
-                new EndpointEntry("127.0.0.1", 8000)
-            };
         }
 
         private void onEvent(WatchEventType type, V1Endpoints endpoints)
