@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
+using SimpleBalancer.App_Infrastructure.Options;
 using System;
 using System.Linq;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
+namespace SimpleBalancer.App_Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -29,7 +29,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
                 {
                     options.EnableLoadBalanceTokens = true;
                 }
-                
+
                 if (TryParseKubernetesServiceOption(configuration[$"SIMPLEBALANCER_K8S_SERVICE"], out var kubernetesServiceOption))
                 {
                     options.KubernetesServiceOption = kubernetesServiceOption;
@@ -52,7 +52,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions
             return services;
         }
 
-        private static bool TryParseKubernetesServiceOption(string? value, out KubernetesServiceOption kubernetesServiceOption)
+        private static bool TryParseKubernetesServiceOption(string value, out KubernetesServiceOption kubernetesServiceOption)
         {
             if (string.IsNullOrWhiteSpace(value))
             {

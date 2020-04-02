@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "NetCoreGrpc.MyGrpcLoadBalancer": {
+    "SimpleBalancer": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",

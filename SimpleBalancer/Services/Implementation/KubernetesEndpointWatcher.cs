@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
-using NetCoreGrpc.MyGrpcLoadBalancer.Services.Abstraction;
+using SimpleBalancer.App_Infrastructure.Options;
+using SimpleBalancer.Services.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation
+namespace SimpleBalancer.Services.Implementation
 {
     internal sealed class KubernetesEndpointWatcher : IEndpointWatcher, IDisposable
     {
@@ -89,7 +89,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation
             }
             _endpointEntries = list;
         }
-        
+
         public void Dispose()
         {
             _k8sClient?.Dispose();

@@ -1,8 +1,8 @@
-﻿using NetCoreGrpc.MyGrpcLoadBalancer.Services.Abstraction;
+﻿using SimpleBalancer.Services.Abstraction;
 using System;
 using System.Collections.Concurrent;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation
+namespace SimpleBalancer.Services.Implementation
 {
     internal sealed class LoadManager : ILoadManager
     {

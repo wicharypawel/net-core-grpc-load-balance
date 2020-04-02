@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options
+namespace SimpleBalancer.App_Infrastructure.Options
 {
     public sealed class BalancerOptions
     {
@@ -21,13 +21,13 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options
 
         internal bool ValidateServiceName(string serviceName)
         {
-            return ValidateServiceNameCore(serviceName) || 
+            return ValidateServiceNameCore(serviceName) ||
                 ValidateServiceNameCore(new UriBuilder($"dns://{serviceName}").Uri.Host);
         }
 
         private bool ValidateServiceNameCore(string serviceName)
         {
-            return Name.Equals(serviceName, StringComparison.OrdinalIgnoreCase) || 
+            return Name.Equals(serviceName, StringComparison.OrdinalIgnoreCase) ||
                 AliasListForClients.Any(x => x.Equals(serviceName, StringComparison.OrdinalIgnoreCase));
         }
     }

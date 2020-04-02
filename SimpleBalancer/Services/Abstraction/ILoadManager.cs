@@ -1,4 +1,4 @@
-﻿namespace NetCoreGrpc.MyGrpcLoadBalancer.Services.Abstraction
+﻿namespace SimpleBalancer.Services.Abstraction
 {
     public interface ILoadManager
     {

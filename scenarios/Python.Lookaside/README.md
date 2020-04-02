@@ -11,7 +11,7 @@ __NOTE: K8s files works with local docker images, change imagePullPolicy to allo
 ## Build images
 ```
 docker build -t python-grpc-client-lookaside .\Python.Lookaside.ConsoleClientApp
-docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
+docker build -t grpc-server-balancer:latest -f .\SimpleBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 

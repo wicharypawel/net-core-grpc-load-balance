@@ -12,7 +12,7 @@ __NOTE: K8s files works with local docker images, change imagePullPolicy to allo
 
 Build image `go-grpc-client-lookaside` using [this](https://github.com/wicharypawel/go-grpc-loadbalancing) repository
 ```
-docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
+docker build -t grpc-server-balancer:latest -f .\SimpleBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 

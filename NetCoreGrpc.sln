@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.LoadBalanceExte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.ServerApp", "NetCoreGrpc.ServerApp\NetCoreGrpc.ServerApp.csproj", "{C397A0BA-E60E-4101-A6A0-B5CD3054909F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.MyGrpcLoadBalancer", "NetCoreGrpc.MyGrpcLoadBalancer\NetCoreGrpc.MyGrpcLoadBalancer.csproj", "{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBalancer", "SimpleBalancer\SimpleBalancer.csproj", "{06C1C167-1AA3-420B-8C55-59D0F3B6BB56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyGrpcLoadBalancer", "MyGrpcLoadBalancer", "{335CC598-19A2-4F8B-9367-E3FD69E25CEA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleBalancer", "SimpleBalancer", "{335CC598-19A2-4F8B-9367-E3FD69E25CEA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{EA48C94B-D09A-4D47-99BC-4F037CBED38B}"
 EndProject

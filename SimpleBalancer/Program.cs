@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer
+namespace SimpleBalancer
 {
     public sealed class Program
     {
@@ -25,7 +25,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer
                     webBuilder.UseStartup<Startup>();
                     webBuilder.ConfigureKestrel(kestrelOptions =>
                     {
-                        kestrelOptions.Listen(IPAddress.Any, 9000, grpcEndpoint=>
+                        kestrelOptions.Listen(IPAddress.Any, 9000, grpcEndpoint =>
                         {
                             grpcEndpoint.Protocols = HttpProtocols.Http2;
                         });

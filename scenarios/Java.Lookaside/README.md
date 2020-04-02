@@ -14,7 +14,7 @@ __NOTE: enable verbose logging in Dockerfile by uncommenting line__
 
 ```
 docker build -t java-grpc-client-lookaside .\Java.Lookaside.ConsoleClientApp
-docker build -t grpc-server-balancer:latest -f .\NetCoreGrpc.MyGrpcLoadBalancer\Dockerfile .
+docker build -t grpc-server-balancer:latest -f .\SimpleBalancer\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 

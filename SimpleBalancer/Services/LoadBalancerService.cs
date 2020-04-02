@@ -4,14 +4,14 @@ using Grpc.Core;
 using Grpc.Lb.V1;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
-using NetCoreGrpc.MyGrpcLoadBalancer.Services.Abstraction;
+using SimpleBalancer.App_Infrastructure.Options;
+using SimpleBalancer.Services.Abstraction;
 using System;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
+namespace SimpleBalancer.Services
 {
     public sealed class LoadBalancerService : LoadBalancer.LoadBalancerBase
     {
@@ -20,7 +20,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
         private readonly ILogger _logger;
         private readonly ILoadManager _loadManager;
 
-        public LoadBalancerService(IEndpointWatcher watcher, 
+        public LoadBalancerService(IEndpointWatcher watcher,
             IOptions<BalancerOptions> options,
             ILogger<LoadBalancerService> logger,
             ILoadManager loadManager)
@@ -31,7 +31,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
             _loadManager = loadManager;
         }
 
-        public override async Task BalanceLoad(IAsyncStreamReader<LoadBalanceRequest> requestStream, 
+        public override async Task BalanceLoad(IAsyncStreamReader<LoadBalanceRequest> requestStream,
             IServerStreamWriter<LoadBalanceResponse> responseStream, ServerCallContext context)
         {
             _logger.LogDebug("BalanceLoad start");
@@ -106,7 +106,7 @@ namespace NetCoreGrpc.MyGrpcLoadBalancer.Services
                 {
                     IpAddress = ByteString.CopyFrom(IPAddress.Parse(entry.Ip).GetAddressBytes()),
                     Port = entry.Port,
-                    LoadBalanceToken = _options.EnableLoadBalanceTokens ? 
+                    LoadBalanceToken = _options.EnableLoadBalanceTokens ?
                         _loadManager.GetLoadBalanceToken(entry.Ip) : string.Empty
                 });
             }

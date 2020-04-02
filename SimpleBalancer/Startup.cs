@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Extensions;
-using NetCoreGrpc.MyGrpcLoadBalancer.App_Infrastructure.Options;
-using NetCoreGrpc.MyGrpcLoadBalancer.Services;
-using NetCoreGrpc.MyGrpcLoadBalancer.Services.Abstraction;
-using NetCoreGrpc.MyGrpcLoadBalancer.Services.Implementation;
+using SimpleBalancer.App_Infrastructure.Extensions;
+using SimpleBalancer.App_Infrastructure.Options;
+using SimpleBalancer.Services;
+using SimpleBalancer.Services.Abstraction;
+using SimpleBalancer.Services.Implementation;
 
-namespace NetCoreGrpc.MyGrpcLoadBalancer
+namespace SimpleBalancer
 {
     public sealed class Startup
     {
