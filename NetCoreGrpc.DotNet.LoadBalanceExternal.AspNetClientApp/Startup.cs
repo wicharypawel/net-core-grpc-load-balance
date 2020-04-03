@@ -70,7 +70,10 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
             }
             else
             {
-                return new DnsClientResolverPlugin();
+                return new DnsClientResolverPlugin(new DnsClientResolverPluginOptions()
+                {
+                    EnableSrvGrpclb = true
+                });
             }
         }
     }

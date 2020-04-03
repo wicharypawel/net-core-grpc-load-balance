@@ -90,12 +90,16 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             {
                 options = new DnsClientResolverPluginOptions()
                 {
-                    NameServers = new IPEndPoint[] { new IPEndPoint(Dns.GetHostAddresses(customDnsAddress)[0], defaultDnsPort) }
+                    NameServers = new IPEndPoint[] { new IPEndPoint(Dns.GetHostAddresses(customDnsAddress)[0], defaultDnsPort) },
+                    EnableSrvGrpclb = true
                 };
             }
             else
             {
-                options = new DnsClientResolverPluginOptions();
+                options = new DnsClientResolverPluginOptions()
+                {
+                    EnableSrvGrpclb = true
+                };
             }
             return options;
         }
