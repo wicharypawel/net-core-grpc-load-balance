@@ -16,12 +16,12 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
     {
         public static void Main()
         {
+            LoadBalancingPolicyRegistry.GetDefaultRegistry().RegisterGrpclb();
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
                 HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
-                ResolverPlugin = GetGrpcResolverPlugin(),
-                LoadBalancingPolicy = new RoundRobinPolicy()
+                ResolverPlugin = GetGrpcResolverPlugin()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
@@ -72,7 +72,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
                             IsLoadBalancer = false,
                         }
                     };
-                });
+                }, () => GrpcServiceConfig.Create("grpclb", "pick_first"));
             }
             else
             {

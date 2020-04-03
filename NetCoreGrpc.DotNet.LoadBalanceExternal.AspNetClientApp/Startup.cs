@@ -25,6 +25,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            LoadBalancingPolicyRegistry.GetDefaultRegistry().RegisterGrpclb();
             services.AddGrpcClient<Greeter.GreeterClient>(o =>
             {
                 var target = Configuration["SERVICE_TARGET"];
@@ -32,7 +33,6 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
                 o.ChannelOptionsActions.Add((options) =>
                 {
                     options.ResolverPlugin = GetGrpcResolverPlugin();
-                    options.LoadBalancingPolicy = new GrpclbPolicy();
                 });
             });
         }
@@ -66,7 +66,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
                             IsLoadBalancer = true,
                         }
                     };
-                });
+                }, () => GrpcServiceConfig.Create("grpclb", "pick_first"));
             }
             else
             {
