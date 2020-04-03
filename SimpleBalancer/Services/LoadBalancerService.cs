@@ -71,8 +71,7 @@ namespace SimpleBalancer.Services
             {
                 InitialResponse = new InitialLoadBalanceResponse()
                 {
-                    ClientStatsReportInterval = Duration.FromTimeSpan(_options.ClientStatsReportInterval),
-                    LoadBalancerDelegate = string.Empty // deprecated https://github.com/grpc/grpc-proto/pull/78
+                    ClientStatsReportInterval = Duration.FromTimeSpan(_options.ClientStatsReportInterval)
                 }
             });
             await SendServerListAsync(responseStream);

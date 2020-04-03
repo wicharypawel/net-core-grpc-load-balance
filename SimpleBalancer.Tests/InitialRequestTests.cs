@@ -102,7 +102,6 @@ namespace NetCoreGrpcIntegrationTests.AspNetCoreServerApp.Tests
             Assert.Equal(LoadBalanceResponseTypeOneofCase.InitialResponse, initialResponse.LoadBalanceResponseTypeCase);
             Assert.NotNull(initialResponse.InitialResponse);
             Assert.Equal(TimeSpan.FromSeconds(10), initialResponse.InitialResponse.ClientStatsReportInterval.ToTimeSpan());
-            Assert.Equal(string.Empty, initialResponse.InitialResponse.LoadBalancerDelegate); //deprecated field
             Assert.Equal(LoadBalanceResponseTypeOneofCase.ServerList, secondResponse.LoadBalanceResponseTypeCase);
             Assert.NotNull(secondResponse.ServerList);
             Assert.Equal(3, secondResponse.ServerList.Servers.Count);
