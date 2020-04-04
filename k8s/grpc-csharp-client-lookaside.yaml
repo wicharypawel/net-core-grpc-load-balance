@@ -8,7 +8,6 @@ spec:
     image: grpc-csharp-client-lookaside:latest
     imagePullPolicy: Never
     env:
-    # use the grpclb as a lookaside balancer
     - name: SERVICE_TARGET
       value: "grpc-server-balancer.default.svc.cluster.local:8000"
     # grpclb can only be used with "ares" DNS resolver

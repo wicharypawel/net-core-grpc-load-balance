@@ -10,10 +10,6 @@ spec:
     env:
     - name: SERVICE_TARGET
       value: "dns://grpc-server.default.svc.cluster.local:8000"
-    #- name: GRPC_VERBOSITY
-    #  value: "debug"
-    #- name: GRPC_TRACE
-    #  value: "all"
     resources:
       requests:
         memory: "64Mi"

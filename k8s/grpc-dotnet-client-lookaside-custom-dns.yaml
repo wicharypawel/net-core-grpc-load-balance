@@ -8,18 +8,10 @@ spec:
     image: grpc-dotnet-client-lookaside:latest
     imagePullPolicy: Never
     env:
-    # use the grpclb as a lookaside balancer
     - name: SERVICE_TARGET
       value: "dns://grpc-server.custom-dns.local:8000"
     - name: CUSTOM_DNS_ADDRESS
       value: "custom-dns"
-    # grpclb can only be used with "ares" DNS resolver
-    - name: GRPC_DNS_RESOLVER
-      value: "ares"
-    #- name: GRPC_VERBOSITY
-    #  value: "debug"
-    #- name: GRPC_TRACE
-    #  value: "all"
     resources:
       requests:
         memory: "64Mi"
