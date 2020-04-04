@@ -1,6 +1,5 @@
-﻿using Grpc.Net.Client;
-using Grpc.Net.Client.LoadBalancing.Policies;
-using Grpc.Net.Client.LoadBalancing.ResolverPlugins;
+﻿using Grpc.Net.Client.LoadBalancing;
+using Grpc.Net.Client.LoadBalancing.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

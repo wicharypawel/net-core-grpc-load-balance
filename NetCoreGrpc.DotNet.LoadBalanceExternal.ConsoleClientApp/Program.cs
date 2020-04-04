@@ -5,11 +5,11 @@ using NetCoreGrpc.LoadBalance.Proto;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using Grpc.Net.Client.LoadBalancing.Policies;
-using Grpc.Net.Client.LoadBalancing.ResolverPlugins;
 using System.Net;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging.Abstractions;
+using Grpc.Net.Client.LoadBalancing;
+using Grpc.Net.Client.LoadBalancing.Extensions;
 
 namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
 {

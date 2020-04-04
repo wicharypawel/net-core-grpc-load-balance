@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\grpc-dotnet\src\Grpc.Net.Client.LoadBalancing\Grpc.Net.Client.LoadBalancing.csproj" />
+    <ProjectReference Include="..\grpc-dotnet\src\Grpc.Net.Client.LoadBalancing.Extensions\Grpc.Net.Client.LoadBalancing.Extensions.csproj" />
     <ProjectReference Include="..\grpc-dotnet\src\Grpc.Net.Client\Grpc.Net.Client.csproj" />
   </ItemGroup>
 
