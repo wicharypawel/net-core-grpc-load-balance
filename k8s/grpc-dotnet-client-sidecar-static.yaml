@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: grpc-dotnet-client-sidecar
+  name: grpc-dotnet-client-sidecar-static
 spec:
   containers:
-  - name: grpc-dotnet-client-sidecar
+  - name: grpc-dotnet-client-sidecar-static
     image: grpc-dotnet-client-sidecar:latest
     imagePullPolicy: Never
     env:

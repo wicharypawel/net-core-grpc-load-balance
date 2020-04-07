@@ -1,4 +1,4 @@
-# Loadbalancing using sidecar proxy for gRPC dotnet client
+# Loadbalancing using sidecar proxy with static configuration for gRPC dotnet client
 
 ## Overview
 
@@ -10,7 +10,7 @@ __NOTE: K8s files works with local docker images, change imagePullPolicy to allo
 
 ## Build images
 ```
-docker build -t grpc-dotnet-envoy-sidecar:latest -f .\Envoy.Sidecar\Dockerfile .\Envoy.Sidecar
+docker build -t grpc-dotnet-envoy-sidecar:latest .\Envoy.Sidecar.StaticConfiguration
 docker build -t grpc-dotnet-client-sidecar:latest -f .\NetCoreGrpc.DotNet.RegularClient.ConsoleClientApp\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
@@ -18,17 +18,17 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ## Create resources in K8s
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
-kubectl create -f .\k8s\grpc-dotnet-client-sidecar.yaml
+kubectl create -f .\k8s\grpc-dotnet-client-sidecar-static.yaml
 ```
 
 ## Verify connection
 ```
-kubectl logs grpc-dotnet-client-sidecar grpc-dotnet-client-sidecar
+kubectl logs grpc-dotnet-client-sidecar-static grpc-dotnet-client-sidecar-static
 ```
 
 ## Tear down resources
 ```
-kubectl delete -f .\k8s\grpc-dotnet-client-sidecar.yaml
+kubectl delete -f .\k8s\grpc-dotnet-client-sidecar-static.yaml
 kubectl delete -f .\k8s\grpc-server.yaml
 ```
 
