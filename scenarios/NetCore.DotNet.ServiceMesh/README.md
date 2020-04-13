@@ -1,4 +1,4 @@
-# Loadbalancing using sidecar proxy with dynamic configuration for gRPC dotnet client
+# Loadbalancing via service mesh for gRPC dotnet client
 
 ## Overview
 
@@ -21,9 +21,8 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 
 ## Create resources in K8s
 ```
-kubectl label --overwrite namespace default istio-injection=disabled
-kubectl apply -f .\k8s\grpc-server-non-headless.yaml
 kubectl label --overwrite namespace default istio-injection=enabled
+kubectl apply -f .\k8s\grpc-server-non-headless.yaml
 kubectl create -f .\k8s\grpc-dotnet-client-sidecar-dynamic.yaml
 ```
 
@@ -37,4 +36,12 @@ kubectl logs grpc-dotnet-client-sidecar-dynamic grpc-dotnet-client-sidecar-dynam
 kubectl delete -f .\k8s\grpc-dotnet-client-sidecar-dynamic.yaml
 kubectl delete -f .\k8s\grpc-server-non-headless.yaml
 kubectl label --overwrite namespace default istio-injection=disabled
+```
+
+## Verify connection using kiali
+
+__NOTE: This works only if kiali is present__ 
+
+```
+istioctl dashboard kiali
 ```
