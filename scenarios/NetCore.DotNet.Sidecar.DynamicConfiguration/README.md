@@ -38,3 +38,5 @@ kubectl delete -f .\k8s\grpc-dotnet-client-sidecar-dynamic.yaml
 kubectl delete -f .\k8s\grpc-server-non-headless.yaml
 kubectl label --overwrite namespace default istio-injection=disabled
 ```
+
+[go back](../../README.md)

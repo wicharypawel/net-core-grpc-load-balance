@@ -45,3 +45,5 @@ __NOTE: This works only if kiali is present__
 ```
 istioctl dashboard kiali
 ```
+
+[go back](../../README.md)
