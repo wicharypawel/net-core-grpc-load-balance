@@ -64,7 +64,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sidecar", "Sidecar", "{574E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.DotNet.RegularClient.ConsoleClientApp", "NetCoreGrpc.DotNet.RegularClient.ConsoleClientApp\NetCoreGrpc.DotNet.RegularClient.ConsoleClientApp.csproj", "{F01524F7-CFA6-4588-A45C-71D2EB5D1FA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XdsTest", "XdsTest\XdsTest.csproj", "{05A604DB-57A5-4E7D-8292-F3813ECBC063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workbench.Xds", "Workbench.Xds\Workbench.Xds.csproj", "{05A604DB-57A5-4E7D-8292-F3813ECBC063}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workbench", "Workbench", "{6DB493DB-DF06-4087-AE74-B4FF6FFB7D7A}"
+	ProjectSection(SolutionItems) = preProject
+		README_WORKBENCH.md = README_WORKBENCH.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +178,7 @@ Global
 		{BC9B1443-A58B-44F4-8C3B-70E53F6A9D36} = {02464F9A-309D-4788-917B-6CB999FE7338}
 		{574ED4F3-B559-4413-A4FC-45683C894CDB} = {50CED42C-B1BF-4F78-853E-14749D91BD79}
 		{F01524F7-CFA6-4588-A45C-71D2EB5D1FA2} = {574ED4F3-B559-4413-A4FC-45683C894CDB}
+		{05A604DB-57A5-4E7D-8292-F3813ECBC063} = {6DB493DB-DF06-4087-AE74-B4FF6FFB7D7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F901E625-68DD-4E60-8F45-2C384EAD4EF1}

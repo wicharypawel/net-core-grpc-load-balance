@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace XdsTest
+namespace Workbench.Xds
 {
-    class Program
+    internal class Program
     {
         private static string ADS_TYPE_URL_LDS = "type.googleapis.com/envoy.api.v2.Listener";
         private static string ADS_TYPE_URL_RDS = "type.googleapis.com/envoy.api.v2.RouteConfiguration";
@@ -52,7 +52,7 @@ namespace XdsTest
             // method handleLdsResponseForListener
             var listeners = discoveryResponse.Resources.Select(x => Listener.Parser.ParseFrom(x.Value)).ToList();
             var mylistenerList = listeners.Where(x => x.Address.SocketAddress.PortValue == 8000).ToList();
-            if(mylistenerList.Count > 1)
+            if (mylistenerList.Count > 1)
             {
                 throw new InvalidOperationException("One listener expected");
             }
@@ -96,7 +96,7 @@ namespace XdsTest
             var clusters = discoveryResponse.Resources.Select(x => Cluster.Parser.ParseFrom(x.Value))
                 .ToList();
             var myCluster = clusters
-                .Where(x=>x.Type == Cluster.Types.DiscoveryType.Eds)
+                .Where(x => x.Type == Cluster.Types.DiscoveryType.Eds)
                 .Where(x => x.EdsClusterConfig.ServiceName == "outbound|8000||grpc-server.default.svc.cluster.local").FirstOrDefault();
             //////////////////////////////////////////
             await connection.RequestStream.WriteAsync(new DiscoveryRequest()

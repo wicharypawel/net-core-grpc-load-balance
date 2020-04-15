@@ -39,6 +39,12 @@
   - open repository
   - copy `validate` folder and paste it to `Protos` (note: copy only *.proto files)
 
+## Import grpclb proto
+
+1. Copy proto file
+ - copy single file from https://github.com/grpc/grpc-proto/blob/master/grpc/lb/v1/load_balancer.proto
+ - paste file into `grpclb` folder
+
 ## Remove unwanted files commands
 
 __Powershell__
