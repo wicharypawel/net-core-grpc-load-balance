@@ -6,7 +6,7 @@ using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using NetCoreGrpc.LoadBalance.Proto;
 
-namespace NetCoreGrpc.DotNet.RegularClient.ConsoleClientApp
+namespace NetCoreGrpc.DotNet.SidecarClient.ConsoleClientApp
 {
     public class Program
     {

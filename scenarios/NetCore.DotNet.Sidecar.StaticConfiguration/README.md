@@ -11,7 +11,7 @@ __NOTE: K8s files works with local docker images, change imagePullPolicy to allo
 ## Build images
 ```
 docker build -t grpc-dotnet-envoy-sidecar:latest .\Envoy.Sidecar.StaticConfiguration
-docker build -t grpc-dotnet-client-sidecar:latest -f .\NetCoreGrpc.DotNet.RegularClient.ConsoleClientApp\Dockerfile .
+docker build -t grpc-dotnet-client-sidecar:latest -f .\NetCoreGrpc.DotNet.SidecarClient.ConsoleClientApp\Dockerfile .
 docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ```
 
