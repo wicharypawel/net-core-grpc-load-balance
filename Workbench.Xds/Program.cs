@@ -117,6 +117,9 @@ namespace Workbench.Xds
             nonce = discoveryResponse.Nonce;
             var clusterLoadAssignments = discoveryResponse.Resources.Select(x => ClusterLoadAssignment.Parser.ParseFrom(x.Value))
                 .ToList();
+            connection.RequestStream.CompleteAsync().Wait();
+            connection.Dispose();
+            channel.ShutdownAsync().Wait();
         }
     }
 }
