@@ -1,0 +1,20 @@
+﻿{
+  "xds_servers": [
+    {
+      "server_uri": "istio-pilot.istio-system.svc.cluster.local:15010",
+      "channel_creds": []
+    }
+  ],
+  "node": {
+    "id": "sidecar~192.168.0.1~xds.default~default.svc.cluster.local",
+    "cluster": "",
+    "metadata": {
+      "fields": {
+      }
+    },
+    "locality": {
+      "region": "local-k8s-cluster",
+      "zone": "a"
+    }
+  }
+}

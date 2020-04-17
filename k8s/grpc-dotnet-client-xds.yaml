@@ -10,6 +10,8 @@ spec:
     env:
     - name: SERVICE_TARGET
       value: "xds://grpc-server.default.svc.cluster.local:8000"
+    - name: GRPC_XDS_BOOTSTRAP
+      value: "/app/XdsBootstrapFile.json"
     resources:
       requests:
         memory: "64Mi"
