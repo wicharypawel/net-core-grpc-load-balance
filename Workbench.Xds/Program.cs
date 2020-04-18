@@ -1,6 +1,7 @@
 ﻿using Envoy.Api.V2;
 using Envoy.Service.Discovery.V2;
 using Grpc.Core;
+using Grpc.Net.Client;
 using System;
 using System.Linq;
 using System.Threading;
@@ -25,9 +26,10 @@ namespace Workbench.Xds
 
         private static async Task MainAsync(string[] args)
         {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             // kubectl port-forward -n istio-system service/istio-pilot 15010:15010
             // https://github.com/grpc/grpc-java/blob/master/xds/src/main/java/io/grpc/xds/XdsClientImpl.java
-            var channel = new Channel("localhost:15010", ChannelCredentials.Insecure);
+            var channel = GrpcChannel.ForAddress("http://localhost:15010", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
             var client = new AggregatedDiscoveryService.AggregatedDiscoveryServiceClient(channel);
             var connection = client.StreamAggregatedResources();
             // method sendXdsRequest

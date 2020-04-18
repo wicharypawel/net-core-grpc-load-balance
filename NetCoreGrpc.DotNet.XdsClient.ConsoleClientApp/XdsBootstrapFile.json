@@ -1,7 +1,7 @@
 ﻿{
   "xds_servers": [
     {
-      "server_uri": "istio-pilot.istio-system.svc.cluster.local:15010",
+      "server_uri": "http://istio-pilot.istio-system.svc.cluster.local:15010",
       "channel_creds": []
     }
   ],
