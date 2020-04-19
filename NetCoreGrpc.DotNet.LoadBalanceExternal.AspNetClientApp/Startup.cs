@@ -58,14 +58,16 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
             {
                 return new StaticResolverPlugin((uri) =>
                 {
-                    return new List<GrpcNameResolutionResult>()
+                    var hosts = new List<GrpcHostAddress>()
                     {
-                        new GrpcNameResolutionResult("127.0.0.1", 9000)
+                        new GrpcHostAddress("127.0.0.1", 9000)
                         {
                             IsLoadBalancer = true,
                         }
                     };
-                }, () => GrpcServiceConfig.Create("grpclb", "pick_first"));
+                    var config = GrpcServiceConfigOrError.FromConfig(GrpcServiceConfig.Create("grpclb", "pick_first"));
+                    return new GrpcNameResolutionResult(hosts, config, GrpcAttributes.Empty);
+                });
             }
             else
             {
