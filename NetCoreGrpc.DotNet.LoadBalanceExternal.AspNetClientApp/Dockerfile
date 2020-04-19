@@ -15,6 +15,8 @@ COPY ["grpc-dotnet/src/Grpc.Net.Common/Grpc.Net.Common.csproj", "grpc-dotnet/src
 COPY ["grpc-dotnet/src/Grpc.AspNetCore/Grpc.AspNetCore.csproj", "grpc-dotnet/src/Grpc.AspNetCore/"]
 COPY ["grpc-dotnet/src/Grpc.AspNetCore.Server.ClientFactory/Grpc.AspNetCore.Server.ClientFactory.csproj", "grpc-dotnet/src/Grpc.AspNetCore.Server.ClientFactory/"]
 COPY ["grpc-dotnet/src/Grpc.AspNetCore.Server/Grpc.AspNetCore.Server.csproj", "grpc-dotnet/src/Grpc.AspNetCore.Server/"]
+COPY ["grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Extensions/Grpc.Net.Client.LoadBalancing.Extensions.csproj", "grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Extensions/"]
+COPY ["grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Protos/Grpc.Net.Client.LoadBalancing.Protos.csproj", "grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Protos/"]
 RUN dotnet restore "NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp/NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp.csproj"
 COPY . .
 WORKDIR "/src/NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp"
