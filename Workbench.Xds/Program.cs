@@ -26,6 +26,7 @@ namespace Workbench.Xds
 
         private static async Task MainAsync(string[] args)
         {
+            var serviceName = "outbound|8000||grpc-server.default.svc.cluster.local";
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             // kubectl port-forward -n istio-system service/istio-pilot 15010:15010
             // https://github.com/grpc/grpc-java/blob/master/xds/src/main/java/io/grpc/xds/XdsClientImpl.java
@@ -97,15 +98,18 @@ namespace Workbench.Xds
             nonce = discoveryResponse.Nonce;
             var clusters = discoveryResponse.Resources.Select(x => Cluster.Parser.ParseFrom(x.Value))
                 .ToList();
-            var myCluster = clusters
+            var cluster = clusters
                 .Where(x => x.Type == Cluster.Types.DiscoveryType.Eds)
-                .Where(x => x.EdsClusterConfig.ServiceName == "outbound|8000||grpc-server.default.svc.cluster.local").FirstOrDefault();
+                .Where(x => x?.EdsClusterConfig?.EdsConfig != null)
+                .Where(x => x.LbPolicy == Cluster.Types.LbPolicy.RoundRobin)
+                .Where(x => x?.Name.Contains(serviceName, StringComparison.OrdinalIgnoreCase) ?? false).First();
             //////////////////////////////////////////
+            var edsClusterName = cluster.EdsClusterConfig?.ServiceName ?? cluster.Name;
             await connection.RequestStream.WriteAsync(new DiscoveryRequest()
             {
 
                 TypeUrl = ADS_TYPE_URL_EDS,
-                ResourceNames = { myCluster.Name },
+                ResourceNames = { edsClusterName },
                 VersionInfo = version,
                 ResponseNonce = nonce,
                 Node = new Envoy.Api.V2.Core.Node()
@@ -119,6 +123,10 @@ namespace Workbench.Xds
             nonce = discoveryResponse.Nonce;
             var clusterLoadAssignments = discoveryResponse.Resources.Select(x => ClusterLoadAssignment.Parser.ParseFrom(x.Value))
                 .ToList();
+            var clusterLoadAssignment = clusterLoadAssignments
+                .Where(x => x.Endpoints.Count != 0)
+                .Where(x => x.Endpoints[0].LbEndpoints.Count != 0)
+                .First();
             connection.RequestStream.CompleteAsync().Wait();
             connection.Dispose();
             channel.ShutdownAsync().Wait();
