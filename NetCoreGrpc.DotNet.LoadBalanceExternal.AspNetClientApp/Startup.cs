@@ -30,7 +30,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
                 o.Address = new UriBuilder(target).Uri;
                 o.ChannelOptionsActions.Add((options) =>
                 {
-                    options.ResolverPlugin = GetGrpcResolverPlugin();
+                    options.Attributes = GetAttributes();
                 });
             });
         }
@@ -50,31 +50,12 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
             });
         }
 
-        private static IGrpcResolverPlugin GetGrpcResolverPlugin()
+        private static GrpcAttributes GetAttributes()
         {
-            var isLocalEnvironment = bool.TryParse(Environment.GetEnvironmentVariable("IS_LOCAL_ENV"), out bool x) ? x : false;
-            if (isLocalEnvironment)
+            return new GrpcAttributes(new Dictionary<string, object>()
             {
-                return new StaticResolverPlugin((uri) =>
-                {
-                    var hosts = new List<GrpcHostAddress>()
-                    {
-                        new GrpcHostAddress("127.0.0.1", 9000)
-                        {
-                            IsLoadBalancer = true,
-                        }
-                    };
-                    var config = GrpcServiceConfigOrError.FromConfig(GrpcServiceConfig.Create("grpclb", "pick_first"));
-                    return new GrpcNameResolutionResult(hosts, config, GrpcAttributes.Empty);
-                });
-            }
-            else
-            {
-                return new DnsClientResolverPlugin(new DnsClientResolverPluginOptions()
-                {
-                    EnableSrvGrpclb = true
-                });
-            }
+                { GrpcAttributesLbConstants.DnsResolverOptions, new DnsClientResolverPluginOptions(){ EnableSrvGrpclb = true } }
+            });
         }
     }
 }

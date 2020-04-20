@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using Grpc.Core;
 using Grpc.Net.Client;
-using Grpc.Net.Client.LoadBalancing;
-using Grpc.Net.Client.LoadBalancing.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NetCoreGrpc.LoadBalance.Proto;
@@ -19,8 +16,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
-                HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
-                ResolverPlugin = GetGrpcResolverPlugin()
+                HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true)
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
@@ -55,30 +51,6 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
                 x.AddConsole();
                 x.SetMinimumLevel(LogLevel.Trace);
             });
-        }
-
-        private static IGrpcResolverPlugin GetGrpcResolverPlugin()
-        {
-            var isLocalEnvironment = bool.TryParse(Environment.GetEnvironmentVariable("IS_LOCAL_ENV"), out bool x) ? x : false;
-            if (isLocalEnvironment)
-            {
-                return new StaticResolverPlugin((uri) =>
-                {
-                    var hosts = new List<GrpcHostAddress>()
-                    {
-                        new GrpcHostAddress("127.0.0.1", 8000)
-                        {
-                            IsLoadBalancer = false,
-                        }
-                    };
-                    var config = GrpcServiceConfigOrError.FromConfig(GrpcServiceConfig.Create("grpclb", "pick_first"));
-                    return new GrpcNameResolutionResult(hosts, config, GrpcAttributes.Empty);
-                });
-            }
-            else
-            {
-                return new DnsClientResolverPlugin();
-            }
         }
 
         private static HttpClient CreateGrpcHttpClient(bool acceptSelfSignedCertificate = false)

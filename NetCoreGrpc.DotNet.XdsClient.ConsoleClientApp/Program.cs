@@ -5,8 +5,6 @@ using NetCoreGrpc.LoadBalance.Proto;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using Grpc.Net.Client.LoadBalancing;
-using Grpc.Net.Client.LoadBalancing.Extensions;
 
 namespace NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp
 {
@@ -18,7 +16,6 @@ namespace NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
                 HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
-                ResolverPlugin = GetGrpcResolverPlugin(),
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
@@ -48,11 +45,6 @@ namespace NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp
                 x.AddConsole();
                 x.SetMinimumLevel(LogLevel.Trace);
             });
-        }
-
-        private static IGrpcResolverPlugin GetGrpcResolverPlugin()
-        {
-            return new XdsResolverPlugin();
         }
 
         private static HttpClient CreateGrpcHttpClient(bool acceptSelfSignedCertificate = false)

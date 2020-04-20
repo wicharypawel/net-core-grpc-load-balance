@@ -6,10 +6,10 @@ using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Net;
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging.Abstractions;
-using Grpc.Net.Client.LoadBalancing;
 using Grpc.Net.Client.LoadBalancing.Extensions;
+using Grpc.Net.Client.LoadBalancing;
+using System.Collections.Generic;
 
 namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
 {
@@ -21,7 +21,10 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
                 HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
-                ResolverPlugin = GetGrpcResolverPlugin(),
+                Attributes = new GrpcAttributes(new Dictionary<string, object>()
+                {
+                    { GrpcAttributesLbConstants.DnsResolverOptions, GetDnsClientResolverPluginOptions() }
+                })
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
@@ -56,30 +59,6 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
                 x.AddConsole();
                 x.SetMinimumLevel(LogLevel.Trace);
             });
-        }
-
-        private static IGrpcResolverPlugin GetGrpcResolverPlugin()
-        {
-            var isLocalEnvironment = bool.TryParse(Environment.GetEnvironmentVariable("IS_LOCAL_ENV"), out bool x) ? x : false;
-            if (isLocalEnvironment)
-            {
-                return new StaticResolverPlugin((uri) =>
-                {
-                    var hosts = new List<GrpcHostAddress>()
-                    {
-                        new GrpcHostAddress("127.0.0.1", 9000)
-                        {
-                            IsLoadBalancer = true,
-                        }
-                    };
-                    var config = GrpcServiceConfigOrError.FromConfig(GrpcServiceConfig.Create("grpclb", "pick_first"));
-                    return new GrpcNameResolutionResult(hosts, config, GrpcAttributes.Empty);
-                });
-            }
-            else
-            {
-                return new DnsClientResolverPlugin(GetDnsClientResolverPluginOptions());
-            }
         }
 
         private static DnsClientResolverPluginOptions GetDnsClientResolverPluginOptions()
