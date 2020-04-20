@@ -9,7 +9,7 @@ spec:
     imagePullPolicy: Never
     env:
     - name: SERVICE_TARGET
-      value: "dns://grpc-server.default.svc.cluster.local:8000"
+      value: "http://grpc-server.default.svc.cluster.local:8000"
     resources:
       requests:
         memory: "64Mi"

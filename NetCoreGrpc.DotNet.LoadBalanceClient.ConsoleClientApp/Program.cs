@@ -16,7 +16,8 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
-                HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true)
+                HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
+                DefaultLoadBalancingPolicy = "round_robin"
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
