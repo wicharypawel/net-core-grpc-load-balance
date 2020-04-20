@@ -14,7 +14,6 @@ namespace NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp
     {
         public static void Main()
         {
-            LoadBalancingPolicyRegistry.GetDefaultRegistry().RegisterXds();
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),

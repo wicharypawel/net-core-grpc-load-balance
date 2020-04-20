@@ -16,7 +16,6 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
     {
         public static void Main()
         {
-            LoadBalancingPolicyRegistry.GetDefaultRegistry().RegisterGrpclb();
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
