@@ -17,6 +17,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
     {
         public static void Main()
         {
+            EnsureLoadAssembly.Load();
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),

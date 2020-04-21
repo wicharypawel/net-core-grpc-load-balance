@@ -5,6 +5,7 @@ using NetCoreGrpc.LoadBalance.Proto;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
+using Grpc.Net.Client.LoadBalancing.Extensions;
 
 namespace NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp
 {
@@ -12,6 +13,7 @@ namespace NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp
     {
         public static void Main()
         {
+            EnsureLoadAssembly.Load();
             var channelOptions = new GrpcChannelOptions()
             {
                 LoggerFactory = GetConsoleLoggerFactory(),

@@ -6,8 +6,6 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp/NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp.csproj", "NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp/"]
-COPY ["grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Extensions/Grpc.Net.Client.LoadBalancing.Extensions.csproj", "grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Extensions/"]
-COPY ["grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Protos/Grpc.Net.Client.LoadBalancing.Protos.csproj", "grpc-dotnet/src/Grpc.Net.Client.LoadBalancing.Protos/"]
 COPY ["grpc-dotnet/src/Grpc.Net.Client/Grpc.Net.Client.csproj", "grpc-dotnet/src/Grpc.Net.Client/"]
 COPY ["grpc-dotnet/src/Grpc.Net.Common/Grpc.Net.Common.csproj", "grpc-dotnet/src/Grpc.Net.Common/"]
 RUN dotnet restore "NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp/NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp.csproj"

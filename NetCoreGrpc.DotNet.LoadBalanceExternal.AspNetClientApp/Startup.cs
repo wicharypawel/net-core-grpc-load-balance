@@ -26,6 +26,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
             services.AddControllers();
             services.AddGrpcClient<Greeter.GreeterClient>(o =>
             {
+                EnsureLoadAssembly.Load();
                 var target = Configuration["SERVICE_TARGET"];
                 o.Address = new UriBuilder(target).Uri;
                 o.ChannelOptionsActions.Add((options) =>
