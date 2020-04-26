@@ -1,14 +1,12 @@
-# Loadbalancing via xDS policy for gRPC dotnet client
+# Loadbalancing via xDS policy for gRPC dotnet client (with no side cars)
 
 ## Overview
 
-![Overview](./overview.PNG)
+![Overview](./overview_with_nosidecars.PNG)
 
 __NOTE: Run commands in root directory__
 
 __NOTE: K8s files works with local docker images, change imagePullPolicy to allow remote registry__
-
-__NOTE: it is possible to use it with service with no sidecars [see here](./README_with_nosidecars.md)__
 
 ## Prerequisites
 
@@ -23,9 +21,8 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 
 ## Create resources in K8s
 ```
-kubectl label --overwrite namespace default istio-injection=enabled
-kubectl apply -f .\k8s\grpc-server-non-headless.yaml
 kubectl label --overwrite namespace default istio-injection=disabled
+kubectl apply -f .\k8s\grpc-server-non-headless.yaml
 kubectl create -f .\k8s\grpc-dotnet-client-xds.yaml
 ```
 
@@ -41,4 +38,4 @@ kubectl delete -f .\k8s\grpc-server-non-headless.yaml
 kubectl label --overwrite namespace default istio-injection=disabled
 ```
 
-[go back](../../README.md)
+[go back](./README.md)

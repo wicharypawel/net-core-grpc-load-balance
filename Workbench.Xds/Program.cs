@@ -1,4 +1,5 @@
-﻿using Envoy.Api.V2;
+using Envoy.Api.V2;
+using Envoy.Api.V2.Core;
 using Envoy.Service.Discovery.V2;
 using Grpc.Core;
 using Grpc.Net.Client;
@@ -26,6 +27,19 @@ namespace Workbench.Xds
 
         private static async Task MainAsync(string[] args)
         {
+            var node = new Node()
+            {
+                Id = "sidecar~192.168.0.1~xds.default~default.svc.cluster.local",
+                Cluster = "",
+                UserAgentName = "grpc-dotnet",
+                UserAgentVersion = "1.0.0",
+                Locality = new Locality()
+                {
+                    Region = "local-k8s-cluster",
+                    Zone = "a"
+                },
+                ClientFeatures = { "envoy.lb.does_not_support_overprovisioning" }
+            };
             var serviceName = "outbound|8000||grpc-server.default.svc.cluster.local";
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             // kubectl port-forward -n istio-system service/istio-pilot 15010:15010
@@ -41,10 +55,7 @@ namespace Workbench.Xds
                 ResourceNames = { },
                 VersionInfo = string.Empty,
                 ResponseNonce = string.Empty,
-                Node = new Envoy.Api.V2.Core.Node()
-                {
-                    Id = "sidecar~192.168.0.1~xds.default~default.svc.cluster.local",
-                }
+                Node = node
             });
             // method onNext
             await connection.ResponseStream.MoveNext(CancellationToken.None);
@@ -68,10 +79,7 @@ namespace Workbench.Xds
                 ResourceNames = { mylistener.Name },
                 VersionInfo = version,
                 ResponseNonce = nonce,
-                Node = new Envoy.Api.V2.Core.Node()
-                {
-                    Id = "sidecar~192.168.0.1~xds.default~default.svc.cluster.local",
-                }
+                Node = node
             });
             await connection.ResponseStream.MoveNext(CancellationToken.None);
             discoveryResponse = connection.ResponseStream.Current;
@@ -87,10 +95,7 @@ namespace Workbench.Xds
                 ResourceNames = { },
                 VersionInfo = version,
                 ResponseNonce = nonce,
-                Node = new Envoy.Api.V2.Core.Node()
-                {
-                    Id = "sidecar~192.168.0.1~xds.default~default.svc.cluster.local",
-                }
+                Node = node
             });
             await connection.ResponseStream.MoveNext(CancellationToken.None);
             discoveryResponse = connection.ResponseStream.Current;
@@ -112,10 +117,7 @@ namespace Workbench.Xds
                 ResourceNames = { edsClusterName },
                 VersionInfo = version,
                 ResponseNonce = nonce,
-                Node = new Envoy.Api.V2.Core.Node()
-                {
-                    Id = "sidecar~192.168.0.1~xds.default~default.svc.cluster.local",
-                }
+                Node = node
             });
             await connection.ResponseStream.MoveNext(CancellationToken.None);
             discoveryResponse = connection.ResponseStream.Current;

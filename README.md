@@ -19,6 +19,7 @@ Scenarios covered by this repository are:
 - sidecar load (static config) balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.Sidecar.StaticConfiguration/README.md)
 - sidecar load (dynamic config) balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.Sidecar.DynamicConfiguration/README.md)
 - istio service mesh load balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.ServiceMesh/README.md)
+- xDS balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.xDS/README.md)
 - lookaside load balancing for gRPC Java client [README](scenarios/Java.Lookaside/README.md)
 - lookaside load balancing for gRPC Go client [README](scenarios/Go.Lookaside/README.md)
 - lookaside load balancing for gRPC Python client [README](scenarios/Python.Lookaside/README.md) 
