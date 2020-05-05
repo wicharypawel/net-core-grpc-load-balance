@@ -28,12 +28,13 @@ Repository also contains simple load balancer for gRPC in K8s written in C#
 
 ## Getting started
 
-1. Download repository 
+1. Download repository and move repository HEAD to latest release tag (eg. v0.6.0)  
 2. Download .Net SDK (in the moment of writing 3.1.101)
 3. Initialize git submodule(s) (see more `https://stackoverflow.com/questions/44366417/what-is-the-point-of-git-submodule-init`)
-4. Open `README.md` file for scenario of choice
-5. Setup K8s cluster
-6. Create pods/services/deployments as described in `README.md` 
+4. Set submodule repository HEAD to latest release tag (eg. v0.6.0) matching tag from step 1.
+5. Open `README.md` file for scenario of choice
+6. Setup K8s cluster
+7. Create pods/services/deployments as described in `README.md` 
 
 ## Sources
 
