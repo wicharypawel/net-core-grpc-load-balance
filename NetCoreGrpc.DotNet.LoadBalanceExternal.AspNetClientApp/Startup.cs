@@ -55,7 +55,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.AspNetClientApp
         {
             return new GrpcAttributes(new Dictionary<string, object>()
             {
-                { GrpcAttributesLbConstants.DnsResolverOptions, new DnsClientResolverPluginOptions(){ EnableSrvGrpclb = true } }
+                { GrpcAttributesLbConstants.DnsResolverOptions, new DnsAdvancedResolverPluginOptions(){ EnableSrvGrpclb = true } }
             });
         }
     }

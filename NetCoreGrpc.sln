@@ -75,8 +75,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xds", "Xds", "{84DE1EBF-F38
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp", "NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp\NetCoreGrpc.DotNet.XdsClient.ConsoleClientApp.csproj", "{90A3B112-9D8F-4675-A351-8E044B71334B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grpc.Net.Client.LoadBalancing.Protos", "grpc-dotnet\src\Grpc.Net.Client.LoadBalancing.Protos\Grpc.Net.Client.LoadBalancing.Protos.csproj", "{E69DF237-F600-4569-B86B-9EE720D0E5B9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,10 +157,6 @@ Global
 		{90A3B112-9D8F-4675-A351-8E044B71334B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90A3B112-9D8F-4675-A351-8E044B71334B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90A3B112-9D8F-4675-A351-8E044B71334B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E69DF237-F600-4569-B86B-9EE720D0E5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E69DF237-F600-4569-B86B-9EE720D0E5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E69DF237-F600-4569-B86B-9EE720D0E5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E69DF237-F600-4569-B86B-9EE720D0E5B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,7 +189,6 @@ Global
 		{05A604DB-57A5-4E7D-8292-F3813ECBC063} = {6DB493DB-DF06-4087-AE74-B4FF6FFB7D7A}
 		{84DE1EBF-F385-4037-92DB-86B47885D180} = {50CED42C-B1BF-4F78-853E-14749D91BD79}
 		{90A3B112-9D8F-4675-A351-8E044B71334B} = {84DE1EBF-F385-4037-92DB-86B47885D180}
-		{E69DF237-F600-4569-B86B-9EE720D0E5B9} = {3594E0BA-151F-4100-BB79-7BFE20EE4365}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F901E625-68DD-4E60-8F45-2C384EAD4EF1}

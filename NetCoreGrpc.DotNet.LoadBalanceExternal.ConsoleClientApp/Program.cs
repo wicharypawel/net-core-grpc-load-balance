@@ -62,14 +62,14 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             });
         }
 
-        private static DnsClientResolverPluginOptions GetDnsClientResolverPluginOptions()
+        private static DnsAdvancedResolverPluginOptions GetDnsClientResolverPluginOptions()
         {
             const int defaultDnsPort = 53;
-            DnsClientResolverPluginOptions options;
+            DnsAdvancedResolverPluginOptions options;
             var customDnsAddress = Environment.GetEnvironmentVariable("CUSTOM_DNS_ADDRESS");
             if (customDnsAddress != null)
             {
-                options = new DnsClientResolverPluginOptions()
+                options = new DnsAdvancedResolverPluginOptions()
                 {
                     NameServers = new IPEndPoint[] { new IPEndPoint(Dns.GetHostAddresses(customDnsAddress)[0], defaultDnsPort) },
                     EnableSrvGrpclb = true
@@ -77,7 +77,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceExternal.ConsoleClientApp
             }
             else
             {
-                options = new DnsClientResolverPluginOptions()
+                options = new DnsAdvancedResolverPluginOptions()
                 {
                     EnableSrvGrpclb = true
                 };
