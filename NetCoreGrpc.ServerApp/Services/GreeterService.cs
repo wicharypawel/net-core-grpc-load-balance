@@ -17,9 +17,10 @@ namespace NetCoreGrpc.ServerApp.Services
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
+            var port = context.GetHttpContext().Connection.LocalPort;
             return Task.FromResult(new HelloReply
             {
-                Message = $"Hello {request.Name} (Backend IP: {GetLocalIPAddress() ?? "not found" })"
+                Message = $"Hello {request.Name} (Backend IP: { GetLocalIPAddress() ?? "addres-not-found" }:{port})"
             });
         }
 
