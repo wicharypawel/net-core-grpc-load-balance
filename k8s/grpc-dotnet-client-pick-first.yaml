@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: grpc-dotnet-client-round-robin
+  name: grpc-dotnet-client-pick-first
 spec:
   containers:
-  - name: grpc-dotnet-client-round-robin
+  - name: grpc-dotnet-client-pick-first
     image: grpc-dotnet-client:latest
     imagePullPolicy: Never
     env:
     - name: SERVICE_TARGET
       value: "dns://grpc-server.default.svc.cluster.local:8000"
     - name: LOAD_BALANCING_POLICY
-      value: "round_robin"
+      value: "pick_first"
     resources:
       requests:
         memory: "64Mi"

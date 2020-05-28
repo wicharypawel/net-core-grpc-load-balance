@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using NetCoreGrpc.LoadBalance.Proto;
+using System;
+using System.Net.Http;
+using System.Threading;
 
 namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
 {
@@ -17,7 +16,7 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
                 HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
-                DefaultLoadBalancingPolicy = "round_robin"
+                DefaultLoadBalancingPolicy = GetLoadBalancingPolicyName()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
@@ -42,11 +41,6 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
 
         private static ILoggerFactory GetConsoleLoggerFactory()
         {
-            var isLocalEnvironment = bool.TryParse(Environment.GetEnvironmentVariable("IS_LOCAL_ENV"), out bool x) ? x : false;
-            if (isLocalEnvironment)
-            {
-                return NullLoggerFactory.Instance;
-            }
             return LoggerFactory.Create(x =>
             {
                 x.AddConsole();
@@ -71,6 +65,12 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
                 httpClient.Timeout = Timeout.InfiniteTimeSpan;
                 return httpClient;
             }
+        }
+
+        private static string GetLoadBalancingPolicyName()
+        {
+            var loadBalancingPolicyName = Environment.GetEnvironmentVariable("LOAD_BALANCING_POLICY");
+            return loadBalancingPolicyName == null ? "pick_first" : loadBalancingPolicyName;
         }
     }
 }

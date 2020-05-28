@@ -2,39 +2,20 @@
 
 # This repository
 
-This repository present examples on how to work with gRPC load balancing.
-
-Best links available online about gRPC load balancing are:
-- https://grpc.io/blog/grpc-load-balancing/
-- https://github.com/grpc/grpc/blob/master/doc/load-balancing.md
-- https://www.youtube.com/watch?v=F2znfxn_5Hg
+This repository present examples for a load balancing in gRPC for dotnet proposal.
 
 Scenarios covered by this repository are:
-- round robin for gRPC C# client [README](scenarios/NetCore.CSharp.RoundRobin/README.md)
-- lookaside load balancing for gRPC C# client [README](scenarios/NetCore.CSharp.Lookaside/README.md)
+- pick first for gRPC dotnet client [README](scenarios/NetCore.DotNet.PickFirst/README.md)
 - round robin for gRPC dotnet client [README](scenarios/NetCore.DotNet.RoundRobin/README.md)
-- lookaside load balancing for gRPC dotnet cient [README](scenarios/NetCore.DotNet.Lookaside/README.md)
-- lookaside load balancing for gRPC dotnet cient with custom dns server (CoreDNS) [README](scenarios/NetCore.DotNet.Lookaside.CustomDns/README.md)
-- lookaside load balancing for gRPC dotnet in `asp.net core` [README](scenarios/NetCore.DotNet.Lookaside.AspNetClient/README.md)
-- sidecar load (static config) balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.Sidecar.StaticConfiguration/README.md)
-- sidecar load (dynamic config) balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.Sidecar.DynamicConfiguration/README.md)
-- istio service mesh load balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.ServiceMesh/README.md)
-- xDS balancing for gRPC dotnet [README](scenarios/NetCore.DotNet.xDS/README.md)
-- lookaside load balancing for gRPC Java client [README](scenarios/Java.Lookaside/README.md)
-- lookaside load balancing for gRPC Go client [README](scenarios/Go.Lookaside/README.md)
-- lookaside load balancing for gRPC Python client [README](scenarios/Python.Lookaside/README.md) 
-
-Repository also contains simple load balancer for gRPC in K8s written in C#
 
 ## Getting started
 
-1. Download repository and move repository HEAD to latest release tag (eg. v0.6.0)  
-2. Download .Net SDK (in the moment of writing 3.1.101)
+1. Download repository and switch to branch named `load-balancing-fork-examples`
+2. Download .Net SDK (in the moment of writing I recommend having 3.1.101 & 3.1.201 & 3.1.300)
 3. Initialize git submodule(s) (see more `https://stackoverflow.com/questions/44366417/what-is-the-point-of-git-submodule-init`)
-4. Set submodule repository HEAD to latest release tag (eg. v0.6.0) matching tag from step 1.
-5. Open `README.md` file for scenario of choice
-6. Setup K8s cluster
-7. Create pods/services/deployments as described in `README.md` 
+4. Open `README.md` file for scenario of choice
+5. Setup K8s cluster
+6. Create pods/services/deployments as described in `README.md` 
 
 ## Sources
 

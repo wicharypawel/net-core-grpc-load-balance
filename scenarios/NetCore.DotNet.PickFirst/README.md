@@ -1,4 +1,4 @@
-# Round robin load balancing for gRPC dotnet client
+# Pick first load balancing for gRPC dotnet client
 
 ## Overview
 
@@ -17,17 +17,17 @@ docker build -t grpc-server:latest -f .\NetCoreGrpc.ServerApp\Dockerfile .
 ## Create resources in K8s
 ```
 kubectl apply -f .\k8s\grpc-server.yaml
-kubectl create -f .\k8s\grpc-dotnet-client-round-robin.yaml
+kubectl create -f .\k8s\grpc-dotnet-client-pick-first.yaml
 ```
 
 ## Verify connection
 ```
-kubectl logs grpc-dotnet-client-round-robin
+kubectl logs grpc-dotnet-client-pick-first
 ```
 
 ## Tear down resources
 ```
-kubectl delete -f .\k8s\grpc-dotnet-client-round-robin.yaml
+kubectl delete -f .\k8s\grpc-dotnet-client-pick-first.yaml
 kubectl delete -f .\k8s\grpc-server.yaml
 ```
 
