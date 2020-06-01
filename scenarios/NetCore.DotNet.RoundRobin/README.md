@@ -20,10 +20,18 @@ kubectl apply -f .\k8s\grpc-server.yaml
 kubectl create -f .\k8s\grpc-dotnet-client-round-robin.yaml
 ```
 
-## Verify connection
+## Verify connection and load balancing
 ```
 kubectl logs grpc-dotnet-client-round-robin
 ```
+
+## Test load balancing by scaling number of instances
+```
+kubectl scale deployment.apps/grpc-server --replicas=2
+kubectl logs grpc-dotnet-client-round-robin
+```
+
+NOTE: the reaction to scaling down is immediate, scaling up has a delay of about 30 sec, because (optional) periodic resolution has find out infrastructure change
 
 ## Tear down resources
 ```

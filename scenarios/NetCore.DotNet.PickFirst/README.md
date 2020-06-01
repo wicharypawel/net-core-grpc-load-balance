@@ -20,7 +20,7 @@ kubectl apply -f .\k8s\grpc-server.yaml
 kubectl create -f .\k8s\grpc-dotnet-client-pick-first.yaml
 ```
 
-## Verify connection
+## Verify connection and load balancing
 ```
 kubectl logs grpc-dotnet-client-pick-first
 ```
