@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
+using Grpc.Net.Client.LoadBalancing;
 using Microsoft.Extensions.Logging;
 using NetCoreGrpc.LoadBalance.Proto;
 using System;
@@ -16,7 +17,8 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
             {
                 LoggerFactory = GetConsoleLoggerFactory(),
                 HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
-                DefaultLoadBalancingPolicy = GetLoadBalancingPolicyName()
+                DefaultLoadBalancingPolicy = GetLoadBalancingPolicyName(),
+                Attributes = GrpcAttributes.Builder.NewBuilder().Add(GrpcAttributesConstants.DnsResolverPeriodicResolutionSeconds, "30").Build()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
