@@ -18,7 +18,16 @@ namespace NetCoreGrpc.DotNet.LoadBalanceClient.ConsoleClientApp
                 LoggerFactory = GetConsoleLoggerFactory(),
                 HttpClient = CreateGrpcHttpClient(acceptSelfSignedCertificate: true),
                 DefaultLoadBalancingPolicy = GetLoadBalancingPolicyName(),
-                Attributes = GrpcAttributes.Builder.NewBuilder().Add(GrpcAttributesConstants.DnsResolverPeriodicResolutionSeconds, 30).Build()
+                Attributes = GrpcAttributes.Builder.NewBuilder()
+                    // DnsResolverNetworkTtlSeconds - suggested demo value 5 sec 
+                    // DnsResolverNetworkTtlSeconds - suggested prod value 30 sec
+                    // DnsResolverNetworkTtlSeconds - 30 sec is the default if not specified
+                    .Add(GrpcAttributesConstants.DnsResolverNetworkTtlSeconds, 5)
+                    // DnsResolverPeriodicResolutionSeconds - suggested demo value 15 sec 
+                    // DnsResolverPeriodicResolutionSeconds - suggested prod value 60 sec
+                    // DnsResolverPeriodicResolutionSeconds - periodic resolution is disabled if not specified
+                    .Add(GrpcAttributesConstants.DnsResolverPeriodicResolutionSeconds, 15) 
+                    .Build()
             };
             var channelTarget = Environment.GetEnvironmentVariable("SERVICE_TARGET");
             var channel = GrpcChannel.ForAddress(channelTarget, channelOptions);
